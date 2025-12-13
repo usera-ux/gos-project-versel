@@ -15,7 +15,7 @@
         <p>Актуальные события и мероприятия Казахстанской ассоциации профессиональных маркетологов</p>
       </div>
     </section>
-
+    <input v-model="search" placeholder="🔍 Поиск новостей...">
     <!-- News Content -->
     <section class="news-content">
       <div class="news-container">
@@ -30,6 +30,7 @@
           <p>Ошибка загрузки: {{ error }}</p>
           <button @click="fetchNews" class="retry-btn">Попробовать снова</button>
         </div>
+         
 
         <!-- News Grid -->
         <div v-else class="news-grid">
@@ -126,7 +127,7 @@ export default {
         this.loading = true
         this.error = null
         
-        // Запрос к вашему MockAPI
+   
         const response = await fetch(this.API_URL)
         
         if (!response.ok) {
@@ -134,21 +135,20 @@ export default {
         }
         
         const data = await response.json()
-        
-        // Проверяем, что data - это массив
+      
         if (Array.isArray(data)) {
           this.news = data
-          // Сортируем по дате (новые первыми)
+     
           this.news.sort((a, b) => new Date(b.date) - new Date(a.date))
         } else {
-          // Если API возвращает не массив, создаем тестовые данные
+
           this.news = this.createFallbackData()
         }
         
       } catch (error) {
         console.error('Error fetching news:', error)
         this.error = error.message
-        // Если API не работает, используем fallback данные
+    
         this.news = this.createFallbackData()
       } finally {
         this.loading = false
