@@ -1,39 +1,40 @@
-# gos-kamp.kz
+# 📰 KAMP - Ассоциация Маркетологов Казахстана
 
-This template should help get you started developing with Vue 3 in Vite.
+##  Live Demo
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-brightgreen)](https://gos-project-versel-ybq3qf43p-arailyms-projects-8f5fbac4.vercel.app)
 
-## Recommended IDE Setup
+[**https://gos-project-versel.vercel.app**](https://gos-project-versel.vercel.app)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+##  Backend API
+[![MockAPI](https://img.shields.io/badge/API-MockAPI-blue)](https://693ad5679b80ba7262cb9443.mockapi.io/arai)
 
-## Recommended Browser Setup
+##  Тестовые аккаунты
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+| Роль | Email | Пароль |
+|------|-------|--------|
+| **Admin** | `admin@kamp.kz` | `admin123` |
+| **User** | `test@test.kz` | `test123` |
 
-## Customize configuration
+##  Функционал
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### **Пользователь (User):**
+-  Личный профиль `/profile`
+-  Просмотр новостей `/news`
+-  Responsive мобильная версия
 
-## Project Setup
+### **Администратор (Admin):**
+-  Админ-панель `/admin`
+-  Создание новостей `/admin/news`
+-  Редактирование новостей
+-  Удаление новостей
+-  CRUD операции с MockAPI
 
-```sh
-npm install
-```
+## Tech Stack
 
-### Compile and Hot-Reload for Development
+| Frontend | Backend | Стили | State |
+|----------|---------|-------|-------|
+| Vue 3 | MockAPI | TailwindCSS | localStorage |
+| Vite | REST API | Glassmorphism | JWT Token |
 
-```sh
-npm run dev
-```
 
-### Compile and Minify for Production
 
-```sh
-npm run build
-```
-# gos-project
