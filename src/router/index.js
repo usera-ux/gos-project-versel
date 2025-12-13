@@ -12,10 +12,11 @@ import Seminars from '../views/Seminars.vue'
 import NotFound from '../views/NotFound.vue'
 import Library from '../views/Library.vue'
 import Contact from '../views/Contact.vue'
-import Brief from '../templates/brief.vue'
+import Brief from '../templates/Brief2.vue'
 import Powerpoint from '../templates/Powerpoint.vue'
 import Question from '../templates/Question.vue'
 import MarketAnalysis from '../templates/MarketAnalysis.vue'
+import Brief2 from '../templates/Brief2.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -30,10 +31,10 @@ const routes = [
   { path: '/seminars', name: 'Seminars', component: Seminars },
   { path: '/notfound', name: 'NotFound', component: NotFound },
   { path: '/library', name: 'Library', component: Library },
-  { path: '/brief', name: 'brief', component: Brief },
   { path: '/powerpoint', name: 'Powerpoint', component: Powerpoint },
   { path: '/question', name: 'Question', component: Question },
   { path: '/marketing-analysis', name: 'MarketAnalysis', component: MarketAnalysis },
+  { path: '/brief', name: 'Brief', component:Brief2 },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/notfound'
