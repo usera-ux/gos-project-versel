@@ -603,7 +603,7 @@ export default {
             color: var(--dark);
             line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            /* -webkit-line-clamp: 2; */
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -613,7 +613,7 @@ export default {
             margin-bottom: 20px;
             line-height: 1.6;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            /* -webkit-line-clamp: 3; */
             -webkit-box-orient: vertical;
             overflow: hidden;
         }

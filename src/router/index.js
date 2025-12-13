@@ -1,20 +1,21 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import News from '../views/News.vue'
 import About from '../views/About.vue'
-import ActivitiesPage from '@/views/ActivitiesPage.vue' 
-import CharterPage from '@/views/CharterPage.vue'
-import DetailNews from '@/views/DetailNews.vue'
-import Exhibitions from '@/views/Exhibitions.vue'
-import Experts from '@/views/Experts.vue'
-import Seminars from '@/views/Seminars.vue'
-import NotFound from '@/views/NotFound.vue'
-import Library from '@/views/Library.vue'
-import Contact from '@/views/Contact.vue'
-import Brief from '@/templates/Brief.vue'
-import Powerpoint from '@/templates/Powerpoint.vue'
-import Question from '@/templates/Question.vue'
-import MarketAnalysis from '@/templates/MarketAnalysis.vue'
+import ActivitiesPage from '../views/ActivitiesPage.vue'
+import CharterPage from '../views/CharterPage.vue'
+import DetailNews from '../views/DetailNews.vue'
+import Exhibitions from '../views/Exhibitions.vue'
+import Experts from '../views/Experts.vue'
+import Seminars from '../views/Seminars.vue'
+import NotFound from '../views/NotFound.vue'
+import Library from '../views/Library.vue'
+import Contact from '../views/Contact.vue'
+import Brief from '../templates/brief.vue'
+import Powerpoint from '../templates/Powerpoint.vue'
+import Question from '../templates/Question.vue'
+import MarketAnalysis from '../templates/MarketAnalysis.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home },
@@ -27,84 +28,46 @@ const routes = [
   { path: '/exhibitions', name: 'Exhibitions', component: Exhibitions },
   { path: '/experts', name: 'Experts', component: Experts },
   { path: '/seminars', name: 'Seminars', component: Seminars },
-  { path: '/library', name: 'Library', component: Library },
   { path: '/notfound', name: 'NotFound', component: NotFound },
-  
-  // Шаблоны
-  { path: '/brief', name: 'Brief', component: Brief },
+  { path: '/library', name: 'Library', component: Library },
+  { path: '/brief', name: 'brief', component: Brief },
   { path: '/powerpoint', name: 'Powerpoint', component: Powerpoint },
   { path: '/question', name: 'Question', component: Question },
   { path: '/marketing-analysis', name: 'MarketAnalysis', component: MarketAnalysis },
-  
-  // Новые страницы с ленивой загрузкой
-  { 
-    path: '/login', 
-    name: 'Login', 
-    component: () => import('@/views/Login.vue'),
-    meta: { public: true } 
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/notfound'
   },
-  { 
-    path: '/dashboard', 
-    name: 'Dashboard', 
-    component: () => import('@/views/Dashboard.vue'),
-    meta: { requiresAuth: true } 
-  },
-  { 
-    path: '/profile', 
-    name: 'Profile', 
-    component: () => import('@/views/Profile.vue'),
-    meta: { requiresAuth: true } 
-  },
-  { 
-    path: '/admin', 
-    name: 'AdminPanel', 
-    component: () => import('@/views/AdminPanel.vue'),
-    meta: { requiresAuth: true, requiresAdmin: true } 
-  },
-  { 
-    path: '/marketing-plan', 
-    name: 'MarketingPlan', 
-    component: () => import('@/templates/MarketingPlan.vue'),
-    meta: { requiresAuth: false } 
-  },
-  
-  // 404
-  { path: '/:pathMatch(.*)*', redirect: '/notfound' }
-]
+  // Добавьте в конец routes массива ДО catch-all:
+{
+  path: '/admin',
+component: () => import('../views/admin/AdminLayout.vue'),
+  children: [
+    { path: '', component: () => import('../views/admin/Dashboard.vue') },
+    { path: 'news', component: () => import('../views/admin/NewsManager.vue') },
+    { path: 'users', component: () => import('../views/admin/UsersManager.vue') },
+    { path: 'events', component: () => import('../views/admin/EventsManager.vue') }
+  ]
+},
+{ path: '/login', name: 'Login', component: () => import('../views/admin/Login.vue') },
+{ path: '/register', name: 'Register', component: () => import('../views/admin/Register.vue') },
+{ path: '/profile', name: 'Profile', component: () => import('../views/Profile.vue') },
 
+
+]
 const router = createRouter({
   history: createWebHistory(),
-  routes,
-  scrollBehavior() {
-    return { top: 0 }
-  }
+  routes
 })
 
-// Навигационный guard
-router.beforeEach(async (to, from, next) => {
-  // Динамический импорт чтобы избежать циклических зависимостей
-  const { useAuthStore } = await import('@/stores/auth')
-  const authStore = useAuthStore()
-  
-  // Проверяем, публичный ли роут
-  if (to.meta.public) {
-    return next()
+// ✅ ПРОСТАЯ защита БЕЗ Pinia (пока)
+router.beforeEach((to, from, next) => {
+  const user = JSON.parse(localStorage.getItem('user') || 'null')
+  if (to.path.startsWith('/admin') && (!user || user.role !== 'admin')) {
+    next('/login')
+  } else {
+    next()
   }
-  
-  // Проверяем, требуется ли аутентификация
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    return next({ 
-      path: '/login',
-      query: { redirect: to.fullPath }
-    })
-  }
-  
-  // Проверяем, требуется ли админ
-  if (to.meta.requiresAdmin && !authStore.isAdmin) {
-    return next('/dashboard')
-  }
-  
-  next()
 })
 
 export default router

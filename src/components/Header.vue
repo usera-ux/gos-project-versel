@@ -9,6 +9,7 @@
         <nav class="nav-main" :class="{ 'mobile-open': mobileMenuOpen }">
           <router-link to="/" class="nav-link" @click="closeMobileMenu">Главная</router-link>
 
+          <!-- О Нас -->
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('about', $event)">О Нас</a>
             <div class="dropdown-menu">
@@ -20,6 +21,7 @@
           
           <router-link to="/news" class="nav-link" @click="closeMobileMenu">Новости</router-link>
           
+          <!-- Обучение -->
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('training', $event)">Обучение</a>
             <div class="dropdown-menu">
@@ -28,7 +30,7 @@
                   Шаблоны для маркетологов
                 </a>
                 <div class="dropdown-submenu-content">
-                  <router-link to="/powerpoint" class="dropdown-item" @click="closeAll">Шаблоны PowerPoint </router-link>
+                  <router-link to="/powerpoint" class="dropdown-item" @click="closeAll">Шаблоны PowerPoint</router-link>
                   <router-link to="/question" class="dropdown-item" @click="closeAll">Шаблоны анкет для опросов</router-link>
                   <router-link to="/marketing-analysis" class="dropdown-item" @click="closeAll">Маркетинговый анализ</router-link>
                   <router-link to="/marketing-plan" class="dropdown-item" @click="closeAll">Маркетинговый план</router-link>
@@ -40,6 +42,7 @@
             </div>
           </div>
           
+          <!-- Проекты -->
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('projects', $event)">Проекты</a>
             <div class="dropdown-menu">
@@ -49,68 +52,38 @@
             </div>
           </div>
 
-          <div class="dropdown">
-            <router-link to="/contact" class="nav-link" @click.prevent="toggleDropdown('contact', $event)">Контакты</router-link>
-           
-          </div>
+          <router-link to="/contact" class="nav-link" @click="closeMobileMenu">Контакты</router-link>
         </nav>
 
-        <div class="lang-switcher">
-          <button @click="setLanguage('ru')" class="lang-btn" :class="{ active: language === 'ru' }">RU</button>
-          <button @click="setLanguage('kz')" class="lang-btn" :class="{ active: language === 'kz' }">KZ</button>
-          <button @click="setLanguage('en')" class="lang-btn" :class="{ active: language === 'en' }">EN</button>
+        <!-- Auth -->
+        <div class="auth-section">
+          <div v-if="!user.name" class="auth-buttons">
+            <router-link to="/login" class="btn btn-secondary">Вход</router-link>
+            <router-link to="/register" class="btn btn-primary">Регистрация</router-link>
+          </div>
+          <div v-else class="user-profile" @click="toggleUserMenu">
+            <div class="user-info">
+              <div class="user-avatar">{{ user.initial }}</div>
+              <span class="user-name">{{ user.name }}</span>
+              <i class="dropdown-arrow">▼</i>
+            </div>
+            <div v-if="userMenuOpen" class="user-dropdown">
+              <router-link to="/profile" class="dropdown-item">👤 Профиль</router-link>
+              <router-link to="/admin" v-if="isAdmin" class="dropdown-item">⚙️ Админ панель</router-link>
+              <div class="dropdown-divider"></div>
+              <button @click="logout" class="dropdown-item logout">🚪 Выйти</button>
+            </div>
+          </div>
         </div>
- <div class="auth-section" v-if="authStore.isAuthenticated">
-      <div class="dropdown">
-        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-          <i class="bi bi-person-circle me-2"></i>
-          {{ authStore.userName }}
-        </a>
-        <div class="dropdown-menu">
-          <router-link to="/dashboard" class="dropdown-item">
-            <i class="bi bi-speedometer2 me-2"></i>Личный кабинет
-          </router-link>
-          <router-link to="/profile" class="dropdown-item">
-            <i class="bi bi-person me-2"></i>Профиль
-          </router-link>
-          <div v-if="authStore.isAdmin" class="dropdown-divider"></div>
-          <router-link v-if="authStore.isAdmin" to="/admin" class="dropdown-item">
-            <i class="bi bi-shield-lock me-2"></i>Админ панель
-          </router-link>
-          <div class="dropdown-divider"></div>
-          <a href="#" @click.prevent="logout" class="dropdown-item text-danger">
-            <i class="bi bi-box-arrow-right me-2"></i>Выйти
-          </a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="auth-section" v-else>
-      <router-link to="/login" class="btn btn-outline-primary btn-sm">
-        <i class="bi bi-box-arrow-in-right me-2"></i>Войти
-      </router-link>
-    </div>
 
         <button class="mobile-menu-btn" @click="toggleMobileMenu">☰</button>
       </div>
     </div>
-   
-
   </header>
 </template>
 
-
-<script setup>
-import { useAuthStore } from '@/stores/auth'
-
-const authStore = useAuthStore()
-
-const logout = () => {
-  authStore.logout()
-}
-</script>
 <script>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, reactive, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMainStore } from '../store'
 
@@ -119,82 +92,187 @@ export default {
   setup() {
     const store = useMainStore()
     const router = useRouter()
+    
     const scrolled = ref(false)
     const mobileMenuOpen = ref(false)
-    const headerId = 'header' 
+    const headerId = 'header'
+    const userMenuOpen = ref(false)
     
-    const language = computed(() => store.language)
-    
-    const handleScroll = () => {
-      scrolled.value = window.scrollY > 50
+    const user = reactive({ name: '', initial: '' })
+
+    // ✅ ВСЕ ФУНКЦИИ ИЗ ВАШЕГО КОДА
+    const initAllFunctions = () => {
+      // 1. Welcome Overlay
+      const welcomeOverlay = document.getElementById('welcomeOverlay')
+      const hasSeenWelcome = localStorage.getItem('hasSeenWelcome')
+      if (welcomeOverlay && !hasSeenWelcome) {
+        setTimeout(() => {
+          welcomeOverlay.classList.add('hidden')
+          localStorage.setItem('hasSeenWelcome', 'true')
+        }, 3000)
+      } else if (welcomeOverlay) {
+        welcomeOverlay.style.display = 'none'
+      }
+
+      // 2. Scroll Header
+      const handleScroll = () => {
+        const header = document.getElementById('header')
+        if (window.scrollY > 50) {
+          header?.classList.add('header-scrolled')
+          scrolled.value = true
+        } else {
+          header?.classList.remove('header-scrolled')
+          scrolled.value = false
+        }
+      }
+      window.addEventListener('scroll', handleScroll)
+
+      // 3. Dropdown Hover (как в вашем коде)
+      const dropdowns = document.querySelectorAll('.dropdown')
+      dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('mouseenter', function() {
+          const menu = this.querySelector('.dropdown-menu')
+          if (menu) {
+            menu.style.display = 'block'
+            menu.style.opacity = '1'
+            menu.style.visibility = 'visible'
+          }
+        })
+        
+        dropdown.addEventListener('mouseleave', function() {
+          const menu = this.querySelector('.dropdown-menu')
+          if (menu) {
+            setTimeout(() => {
+              if (!menu.matches(':hover') && !this.matches(':hover')) {
+                menu.style.display = 'none'
+                menu.style.opacity = '0'
+                menu.style.visibility = 'hidden'
+              }
+            }, 100)
+          }
+        })
+      })
+
+      // 4. Mobile Submenu Toggle
+      document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault()
+            const submenu = this.nextElementSibling
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block'
+          }
+        })
+      })
+
+      // 5. Mobile Menu Toggle
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn')
+      const navMain = document.querySelector('.nav-main')
+      if (mobileMenuBtn && navMain) {
+        mobileMenuBtn.addEventListener('click', () => {
+          navMain.classList.toggle('mobile-open')
+        })
+      }
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll)
+      }
     }
-    
-    const setLanguage = (lang) => {
-      store.setLanguage(lang)
+
+  const checkUser = () => {
+  const token = localStorage.getItem('token')
+  if (!token) {
+    user.name = ''
+    user.initial = 'U'
+    return
+  }
+  
+  const userData = localStorage.getItem('user')
+  if (userData) {
+    try {
+      const parsed = JSON.parse(userData)
+      user.name = parsed.name || 'U'
+      user.initial = parsed.name ? parsed.name.charAt(0).toUpperCase() : 'U'
+    } catch {
+      user.name = ''
+      user.initial = 'U'
     }
-    
+  }
+}
+
+
+
+    const toggleUserMenu = () => {
+      userMenuOpen.value = !userMenuOpen.value
+    }
+
+    const logout = () => {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      checkUser()
+      userMenuOpen.value = false
+    }
+
+    const isAdmin = computed(() => {
+      try {
+        const data = localStorage.getItem('user')
+        return data ? JSON.parse(data).role === 'admin' : false
+      } catch {
+        return false
+      }
+    })
+
     const toggleMobileMenu = () => {
       mobileMenuOpen.value = !mobileMenuOpen.value
     }
-    
+
     const closeMobileMenu = () => {
       mobileMenuOpen.value = false
     }
-    
-    const toggleDropdown = (dropdownName, event) => {
-    
-      if (window.innerWidth <= 1024) {
-        switch(dropdownName) {
-          case 'about':
-            router.push('/about')
-            break
-          case 'training':
-            router.push('/training')
-            break
-          case 'projects':
-            router.push('/exhibitions')
-            break
-          case 'contact':
-            router.push('/contact')
-            break
-        }
-        closeMobileMenu()
-      }
-    
-    }
-    
-    const toggleSubmenu = (event) => {
-    
-      if (window.innerWidth <= 1024) {
-        event.preventDefault()
-        const submenu = event.target.nextElementSibling
-        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block'
-      }
-    }
-    
+
     const closeAll = () => {
       mobileMenuOpen.value = false
+      document.querySelectorAll('.dropdown-submenu-content').forEach(s => {
+        s.style.display = 'none'
+      })
     }
-    
-    onMounted(() => {
-      window.addEventListener('scroll', handleScroll)
+
+    const toggleDropdown = (name, event) => {
+      if (window.innerWidth <= 1024) {
+        const routes = { 
+          'about': '/about', 
+          'training': '/library', 
+          'projects': '/exhibitions' 
+        }
+        router.push(routes[name] || '/')
+        closeMobileMenu()
+      }
+    }
+
+    const toggleSubmenu = (event) => {
+      if (window.innerWidth <= 1024) {
+        event.preventDefault()
+        event.stopPropagation()
+        const submenu = event.target.nextElementSibling
+        if (submenu) {
+          submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block'
+        }
+      }
+    }
+
+    onMounted(async () => {
+      checkUser()
+      await nextTick()
+      initAllFunctions()
     })
-    
+
     onUnmounted(() => {
-      window.removeEventListener('scroll', handleScroll)
+      // Cleanup
     })
-    
+
     return {
-      scrolled,
-      mobileMenuOpen,
-      headerId,
-      language,
-      setLanguage,
-      toggleMobileMenu,
-      closeMobileMenu,
-      toggleDropdown,
-      toggleSubmenu,
-      closeAll
+      scrolled, mobileMenuOpen, headerId, user, userMenuOpen,
+      toggleUserMenu, logout, isAdmin,
+      toggleMobileMenu, closeMobileMenu, toggleDropdown, toggleSubmenu, closeAll
     }
   }
 }
@@ -229,7 +307,6 @@ export default {
   align-items: center;
 }
 
-/* Навигация */
 .nav-main {
   display: flex;
   gap: 5px;
@@ -254,6 +331,7 @@ export default {
   color: white;
 }
 
+/* Dropdown */
 .dropdown {
   position: relative;
 }
@@ -271,12 +349,42 @@ export default {
   transform: translateY(10px);
   transition: all 0.3s ease;
   z-index: 1000;
+  pointer-events: none;
 }
 
 .dropdown:hover .dropdown-menu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+/* Submenu */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu-content {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: white;
+  min-width: 220px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.dropdown-submenu:hover .dropdown-submenu-content {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(0) !important;
+  pointer-events: auto !important;
 }
 
 .dropdown-item {
@@ -294,38 +402,11 @@ export default {
   color: white;
 }
 
-.dropdown-item:last-child {
-  border-bottom: none;
+.dropdown-toggle {
+  font-weight: 500;
 }
 
-.dropdown-submenu {
-  position: relative;
-}
-
-.dropdown-submenu .dropdown-toggle::after {
-  content: "›";
-  float: right;
-  margin-left: 10px;
-  transform: rotate(90deg);
-}
-
-.dropdown-submenu-content {
-  display: none;
-  position: absolute;
-  left: 100%;
-  top: 0;
-  background: white;
-  min-width: 280px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  z-index: 1001;
-}
-
-.dropdown-submenu:hover .dropdown-submenu-content {
-  display: block;
-}
-
-
+/* Lang Switcher */
 .lang-switcher {
   display: flex;
   gap: 5px;
@@ -333,26 +414,123 @@ export default {
 }
 
 .lang-btn {
-  padding: 5px 10px;
-  border: 1px solid #2c5aa0;
-  background: white;
-  border-radius: 4px;
-  color: #2c5aa0;
-  font-size: 0.8rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  padding: 6px 12px;
+  background: #f3f4f6;
+  color: #6b7280;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.3s;
 }
 
+.lang-btn.active,
 .lang-btn:hover {
   background: #2c5aa0;
   color: white;
 }
 
-.lang-btn.active {
+/* Auth */
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: 20px;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.user-profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #2c5aa0, #1e3a6f);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #2c5aa0;
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  transition: transform 0.3s;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  min-width: 180px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1001;
+  margin-top: 10px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: #eee;
+  margin: 0;
+}
+
+.logout {
+  color: #ef4444 !important;
+  font-weight: 500;
+}
+
+.logout:hover {
+  background: #fee2e2 !important;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  color: #2c5aa0;
+  border: 1px solid #2c5aa0;
+  background: transparent;
+}
+
+.btn-primary {
   background: #2c5aa0;
   color: white;
 }
-
 
 .mobile-menu-btn {
   display: none;
@@ -364,7 +542,7 @@ export default {
   padding: 5px;
 }
 
-
+/* Mobile */
 @media (max-width: 1024px) {
   .nav-main {
     display: none;
@@ -379,78 +557,26 @@ export default {
     gap: 10px;
   }
   
-  .mobile-menu-btn {
-    display: block;
-  }
-  
   .nav-main.mobile-open {
     display: flex;
   }
   
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    display: none;
-    background: #f8f9fa;
-    margin-left: 20px;
-    margin-top: 10px;
-  }
-  
-  .dropdown:hover .dropdown-menu {
+  .mobile-menu-btn {
     display: block;
   }
   
+  .auth-section {
+    margin-left: 10px;
+  }
+  
+  .dropdown-menu,
   .dropdown-submenu-content {
-    position: static;
-    left: auto;
-    box-shadow: none;
-    padding-left: 20px;
-    background: #e9ecef;
-  }
-  
-  .dropdown-submenu .dropdown-toggle::after {
-    transform: rotate(0deg);
-  }
-  
-  .lang-switcher {
-    margin-left: auto;
-    margin-right: 15px;
-  }
-}
-</style>
-<style scoped>
-.dropdown-menu {
-    padding-top: 5px;
-    margin-top: -5px;
-}
-
-
-.dropdown > .nav-link {
-    position: relative;
-    z-index: 1001;
-}
-
-
-.dropdown::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    height: 10px;
-    background: transparent;
-}
-
-
-.dropdown:hover .dropdown-menu {
+    position: static !important;
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateY(0) !important;
-    display: block !important;
+    transform: none !important;
+    box-shadow: none !important;
+    display: none;
+  }
 }
-
-
 </style>

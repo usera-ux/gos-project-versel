@@ -1,0 +1,204 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@kamp.kz",
+      "password": "admin",
+      "name": "admin",
+      "role": "admin",
+      "createdAt": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": "597d",
+      "email": "fqewadcsf22@gr",
+      "password": "gqraes",
+      "name": "hqbeargvfzsdc`x",
+      "role": "user",
+      "createdAt": "2025-12-13T21:02:56.658Z"
+    },
+    {
+      "id": "12c2",
+      "email": "gqrfawecds@f",
+      "password": "vrqad",
+      "name": "bqvrea",
+      "role": "user",
+      "createdAt": "2025-12-13T21:04:22.611Z"
+    },
+    {
+      "id": "16b3",
+      "email": "feqdas@vcds",
+      "password": "vfds",
+      "name": "vqda",
+      "role": "user",
+      "createdAt": "2025-12-13T21:04:54.193Z"
+    },
+    {
+      "id": "ffd2",
+      "email": "vaeszd@fae",
+      "password": "qgveraf",
+      "name": "vae",
+      "role": "user",
+      "createdAt": "2025-12-13T21:06:25.146Z"
+    },
+    {
+      "id": "1079",
+      "email": "cewas@vav",
+      "password": "x",
+      "name": "efqwa",
+      "role": "user",
+      "createdAt": "2025-12-13T21:06:47.045Z"
+    },
+    {
+      "id": "66b7",
+      "email": "diysenaliarailym@icloud.com",
+      "password": "234567890",
+      "name": "arailym",
+      "role": "user",
+      "createdAt": "2025-12-13T21:08:14.165Z"
+    },
+    {
+      "id": "dea2",
+      "email": "varzsdc@gavr",
+      "password": "baresvfzd",
+      "name": "aebstdxfv",
+      "role": "user",
+      "createdAt": "2025-12-13T21:09:22.016Z"
+    },
+    {
+      "id": "2e0d",
+      "email": "arailym@icloud.com",
+      "password": "1234567890",
+      "name": "arailym",
+      "role": "user",
+      "createdAt": "2025-12-13T21:13:39.338Z"
+    },
+    {
+      "id": "7b33",
+      "email": "rgtrhytjurt@h",
+      "password": "hdrt",
+      "name": "gaserf",
+      "role": "user",
+      "createdAt": "2025-12-13T21:15:07.721Z"
+    },
+    {
+      "id": "877d",
+      "email": "f34regtr@fgges",
+      "password": "qg4rawv",
+      "name": "123r456",
+      "role": "user",
+      "createdAt": "2025-12-13T21:16:41.524Z"
+    },
+    {
+      "id": "e16b",
+      "email": "arai@a",
+      "password": "1234",
+      "name": "arai",
+      "role": "user",
+      "createdAt": "2025-12-13T21:27:31.675Z"
+    },
+    {
+      "id": "eb2b",
+      "email": "fewcas`x@verfd",
+      "password": "bvrwesf",
+      "name": "qvread",
+      "role": "user",
+      "createdAt": "2025-12-13T21:43:21.527Z"
+    },
+    {
+      "id": "84f0",
+      "email": "rtghyt@gref",
+      "password": "grqea",
+      "name": "garwe",
+      "role": "user",
+      "createdAt": "2025-12-13T21:46:13.190Z"
+    },
+    {
+      "id": "94fd",
+      "email": "qwerty@icloud.com",
+      "password": "123456789",
+      "name": "qwerty",
+      "role": "user",
+      "createdAt": "2025-12-13T22:01:21.754Z"
+    },
+    {
+      "id": "4a48",
+      "email": "qwerty@gmail.com",
+      "password": "1234567890",
+      "name": "qwerty",
+      "role": "user",
+      "createdAt": "2025-12-13T22:05:03.246Z"
+    },
+    {
+      "id": "1633",
+      "email": "qwerty@qwer",
+      "password": "wert",
+      "name": "12345y",
+      "role": "user",
+      "createdAt": "2025-12-13T22:07:43.517Z"
+    },
+    {
+      "id": "3e2c",
+      "email": "asdfghj@vbn",
+      "password": "12345678",
+      "name": "arai",
+      "role": "user",
+      "createdAt": "2025-12-13T22:09:28.487Z"
+    },
+    {
+      "id": "7021",
+      "email": "qwerty@e",
+      "password": "2ew",
+      "name": "fea",
+      "role": "user",
+      "createdAt": "2025-12-13T22:13:15.242Z"
+    },
+    {
+      "id": "9d8b",
+      "email": "asdfv@f",
+      "password": "f",
+      "name": "f",
+      "role": "user",
+      "createdAt": "2025-12-13T22:14:01.689Z"
+    },
+    {
+      "id": "cfb4",
+      "email": "qd@d",
+      "password": "2",
+      "name": "2",
+      "role": "user",
+      "createdAt": "2025-12-13T22:16:42.459Z"
+    },
+    {
+      "id": "1474",
+      "email": "qwerty@1",
+      "password": "2w",
+      "name": "dqw",
+      "role": "user",
+      "createdAt": "2025-12-13T22:18:52.664Z"
+    },
+    {
+      "id": "ec90",
+      "email": "asdf@s",
+      "password": "sad",
+      "name": "cad",
+      "role": "user",
+      "createdAt": "2025-12-13T22:20:27.618Z"
+    },
+    {
+      "id": "7c1e",
+      "email": "wdef@dew",
+      "password": "evwa",
+      "name": "adcs",
+      "role": "user",
+      "createdAt": "2025-12-13T22:26:48.130Z"
+    },
+    {
+      "id": "9d3a",
+      "email": "dwaseds@ds",
+      "password": "ddd",
+      "name": "d",
+      "role": "user",
+      "createdAt": "2025-12-13T22:30:20.187Z"
+    }
+  ]
+}
