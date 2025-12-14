@@ -9,6 +9,7 @@
         <nav class="nav-main" :class="{ 'mobile-open': mobileMenuOpen }">
           <router-link to="/" class="nav-link" @click="closeMobileMenu">Главная</router-link>
 
+
           <!-- О Нас -->
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('about', $event)">О Нас</a>
@@ -26,17 +27,9 @@
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('training', $event)">Обучение</a>
             <div class="dropdown-menu">
               <div class="dropdown-submenu">
-                <a href="#" class="dropdown-item dropdown-toggle" @click.prevent="toggleSubmenu($event)">
+                <router-link to="/powerpoint" class="dropdown-item dropdown-toggle" @click.prevent="toggleSubmenu($event)">
                   Шаблоны для маркетологов
-                </a>
-                <div class="dropdown-submenu-content">
-                  <router-link to="/powerpoint" class="dropdown-item" @click="closeAll">Шаблоны PowerPoint</router-link>
-                  <router-link to="/question" class="dropdown-item" @click="closeAll">Шаблоны анкет для опросов</router-link>
-                  <router-link to="/marketing-analysis" class="dropdown-item" @click="closeAll">Маркетинговый анализ</router-link>
-                  <router-link to="/marketing-plan" class="dropdown-item" @click="closeAll">Маркетинговый план</router-link>
-                  <router-link to="/templates/sales-analysis" class="dropdown-item" @click="closeAll">Шаблоны анализа продаж</router-link>
-                  <router-link to="/brief" class="dropdown-item" @click="closeAll">Шаблоны брифов</router-link>
-                </div>
+                </router-link>
               </div>
               <router-link to="/library" class="dropdown-item" @click="closeAll">Литература</router-link>
             </div>
@@ -52,29 +45,41 @@
             </div>
           </div>
 
+
           <router-link to="/contact" class="nav-link" @click="closeMobileMenu">Контакты</router-link>
         </nav>
+
 
         <!-- Auth -->
         <div class="auth-section">
           <div v-if="!user.name" class="auth-buttons">
             <router-link to="/login" class="btn btn-secondary">Вход</router-link>
-            <router-link to="/register" class="btn btn-primary">Регистрация</router-link>
+            <router-link to="/register" class="btn btn2">Регистрация</router-link>
           </div>
           <div v-else class="user-profile" @click="toggleUserMenu">
             <div class="user-info">
-              <div class="user-avatar">{{ user.initial }}</div>
+         <div class="user-avatar">
+  <img 
+    v-if="user.avatar" 
+    :src="user.avatar" 
+    alt="Avatar"
+    class="user-avatar-img"
+  />
+  <span v-else>{{ user.initial }}</span>
+</div>
+
               <span class="user-name">{{ user.name }}</span>
               <i class="dropdown-arrow">▼</i>
             </div>
             <div v-if="userMenuOpen" class="user-dropdown">
-              <router-link to="/profile" class="dropdown-item">👤 Профиль</router-link>
-              <router-link to="/admin" v-if="isAdmin" class="dropdown-item">⚙️ Админ панель</router-link>
+              <router-link to="/profile" class="dropdown-item">Профиль</router-link>
+              <router-link to="/admin" v-if="isAdmin" class="dropdown-item">Админ панель</router-link>
               <div class="dropdown-divider"></div>
-              <button @click="logout" class="dropdown-item logout">🚪 Выйти</button>
+              <button @click="logout" class="dropdown-item logout">Выйти</button>
             </div>
           </div>
         </div>
+
 
         <button class="mobile-menu-btn" @click="toggleMobileMenu">☰</button>
       </div>
@@ -82,10 +87,12 @@
   </header>
 </template>
 
+
 <script>
 import { ref, onMounted, onUnmounted, reactive, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMainStore } from '../store'
+
 
 export default {
   name: 'Header',
@@ -99,6 +106,7 @@ export default {
     const userMenuOpen = ref(false)
     
     const user = reactive({ name: '', initial: '' })
+
 
     // ✅ ВСЕ ФУНКЦИИ ИЗ ВАШЕГО КОДА
     const initAllFunctions = () => {
@@ -114,6 +122,7 @@ export default {
         welcomeOverlay.style.display = 'none'
       }
 
+
       // 2. Scroll Header
       const handleScroll = () => {
         const header = document.getElementById('header')
@@ -126,6 +135,7 @@ export default {
         }
       }
       window.addEventListener('scroll', handleScroll)
+
 
       // 3. Dropdown Hover (как в вашем коде)
       const dropdowns = document.querySelectorAll('.dropdown')
@@ -153,6 +163,7 @@ export default {
         })
       })
 
+
       // 4. Mobile Submenu Toggle
       document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
         toggle.addEventListener('click', function(e) {
@@ -164,6 +175,20 @@ export default {
         })
       })
 
+      onMounted(async () => {
+  checkUser()
+  await nextTick()
+  initAllFunctions()
+
+  // слушаем обновление пользователя
+  window.addEventListener('user-updated', checkUser)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('user-updated', checkUser)
+})
+
+
       // 5. Mobile Menu Toggle
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn')
       const navMain = document.querySelector('.nav-main')
@@ -173,31 +198,40 @@ export default {
         })
       }
 
+
       return () => {
         window.removeEventListener('scroll', handleScroll)
       }
     }
 
-  const checkUser = () => {
+
+
+
+const checkUser = () => {
   const token = localStorage.getItem('token')
   if (!token) {
     user.name = ''
     user.initial = 'U'
+    user.avatar = ''
     return
   }
-  
+
   const userData = localStorage.getItem('user')
   if (userData) {
     try {
       const parsed = JSON.parse(userData)
-      user.name = parsed.name || 'U'
-      user.initial = parsed.name ? parsed.name.charAt(0).toUpperCase() : 'U'
+      user.name = parsed.name || parsed.firstName || 'U'
+      user.initial = (user.name[0] || 'U').toUpperCase()
+      user.avatar = parsed.avatar || ''  // ← добавь эту строку
     } catch {
       user.name = ''
       user.initial = 'U'
+      user.avatar = ''
     }
   }
 }
+
+
 
 
 
@@ -205,12 +239,14 @@ export default {
       userMenuOpen.value = !userMenuOpen.value
     }
 
+
     const logout = () => {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       checkUser()
       userMenuOpen.value = false
     }
+
 
     const isAdmin = computed(() => {
       try {
@@ -221,13 +257,16 @@ export default {
       }
     })
 
+
     const toggleMobileMenu = () => {
       mobileMenuOpen.value = !mobileMenuOpen.value
     }
 
+
     const closeMobileMenu = () => {
       mobileMenuOpen.value = false
     }
+
 
     const closeAll = () => {
       mobileMenuOpen.value = false
@@ -235,6 +274,7 @@ export default {
         s.style.display = 'none'
       })
     }
+
 
     const toggleDropdown = (name, event) => {
       if (window.innerWidth <= 1024) {
@@ -248,6 +288,7 @@ export default {
       }
     }
 
+
     const toggleSubmenu = (event) => {
       if (window.innerWidth <= 1024) {
         event.preventDefault()
@@ -259,26 +300,50 @@ export default {
       }
     }
 
+
     onMounted(async () => {
       checkUser()
       await nextTick()
       initAllFunctions()
     })
 
+
     onUnmounted(() => {
       // Cleanup
     })
 
+
     return {
       scrolled, mobileMenuOpen, headerId, user, userMenuOpen,
       toggleUserMenu, logout, isAdmin,
-      toggleMobileMenu, closeMobileMenu, toggleDropdown, toggleSubmenu, closeAll
+      toggleMobileMenu, closeMobileMenu, toggleDropdown, toggleSubmenu, closeAll,
+  checkUser,
     }
   }
 }
 </script>
 
+
 <style scoped>
+  .user-avatar {
+  width: 40px;
+  height: 40px;
+  background: #2c5aa0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .glass-header {
   position: fixed;
   top: 0;
@@ -291,9 +356,11 @@ export default {
   transition: all 0.3s ease;
 }
 
+
 .header-scrolled {
   box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
 }
+
 
 .container {
   max-width: 1400px;
@@ -301,17 +368,20 @@ export default {
   padding: 0 20px;
 }
 
+
 .header-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+
 .nav-main {
   display: flex;
   gap: 5px;
   align-items: center;
 }
+
 
 .nav-link {
   color: #2d3748;
@@ -326,15 +396,18 @@ export default {
   cursor: pointer;
 }
 
+
 .nav-link:hover {
   background: #2c5aa0;
   color: white;
 }
 
+
 /* Dropdown */
 .dropdown {
   position: relative;
 }
+
 
 .dropdown-menu {
   position: absolute;
@@ -352,6 +425,7 @@ export default {
   pointer-events: none;
 }
 
+
 .dropdown:hover .dropdown-menu {
   opacity: 1 !important;
   visibility: visible !important;
@@ -359,10 +433,12 @@ export default {
   pointer-events: auto !important;
 }
 
+
 /* Submenu */
 .dropdown-submenu {
   position: relative;
 }
+
 
 .dropdown-submenu-content {
   position: absolute;
@@ -380,12 +456,14 @@ export default {
   pointer-events: none;
 }
 
+
 .dropdown-submenu:hover .dropdown-submenu-content {
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateX(0) !important;
   pointer-events: auto !important;
 }
+
 
 .dropdown-item {
   display: block;
@@ -397,14 +475,17 @@ export default {
   font-size: 0.9rem;
 }
 
+
 .dropdown-item:hover {
   background: #2c5aa0;
   color: white;
 }
 
+
 .dropdown-toggle {
   font-weight: 500;
 }
+
 
 /* Lang Switcher */
 .lang-switcher {
@@ -412,6 +493,7 @@ export default {
   gap: 5px;
   margin-left: 20px;
 }
+
 
 .lang-btn {
   padding: 6px 12px;
@@ -424,11 +506,13 @@ export default {
   transition: all 0.3s;
 }
 
+
 .lang-btn.active,
 .lang-btn:hover {
   background: #2c5aa0;
   color: white;
 }
+
 
 /* Auth */
 .auth-section {
@@ -438,21 +522,25 @@ export default {
   margin-left: 20px;
 }
 
+
 .auth-buttons {
   display: flex;
   gap: 10px;
 }
+
 
 .user-profile {
   position: relative;
   cursor: pointer;
 }
 
+
 .user-info {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 
 .user-avatar {
   width: 40px;
@@ -467,6 +555,7 @@ export default {
   font-size: 16px;
 }
 
+
 .user-name {
   font-weight: 500;
   color: #2c5aa0;
@@ -476,10 +565,12 @@ export default {
   text-overflow: ellipsis;
 }
 
+
 .dropdown-arrow {
   font-size: 12px;
   transition: transform 0.3s;
 }
+
 
 .user-dropdown {
   position: absolute;
@@ -493,20 +584,24 @@ export default {
   margin-top: 10px;
 }
 
+
 .dropdown-divider {
   height: 1px;
   background: #eee;
   margin: 0;
 }
 
+
 .logout {
   color: #ef4444 !important;
   font-weight: 500;
 }
 
+
 .logout:hover {
   background: #fee2e2 !important;
 }
+
 
 .btn {
   padding: 8px 16px;
@@ -521,16 +616,19 @@ export default {
   cursor: pointer;
 }
 
+
 .btn-secondary {
   color: #2c5aa0;
   border: 1px solid #2c5aa0;
   background: transparent;
 }
 
-.btn-primary {
+
+.btn2 {
   background: #2c5aa0;
   color: white;
 }
+
 
 .mobile-menu-btn {
   display: none;
@@ -541,6 +639,7 @@ export default {
   cursor: pointer;
   padding: 5px;
 }
+
 
 /* Mobile */
 @media (max-width: 1024px) {

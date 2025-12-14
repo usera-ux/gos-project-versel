@@ -14,7 +14,7 @@
     <!-- ✅ ЕДИНАЯ ФОРМА (карточка сверху) -->
     <div v-if="showForm" class="card mb-4">
       <div class="card-header d-flex justify-content-between">
-        <h4>{{ editingNews ? '✏️ Редактировать' : '➕ Новая новость' }}</h4>
+        <h4>{{ editingNews ? ' Редактировать' : '➕ Новая новость' }}</h4>
         <button @click="cancelEdit" class="btn btn-sm btn-outline-secondary">✕</button>
       </div>
       <div class="card-body">
@@ -31,8 +31,8 @@
           <input v-model="form.image" class="form-control" placeholder="https://example.com/image.jpg">
         </div>
         <div class="d-flex gap-2">
-          <button @click="saveNews" class="btn btn-primary">💾 {{ editingNews ? 'Сохранить' : 'Создать' }}</button>
-          <button @click="cancelEdit" class="btn btn-secondary">❌ Отмена</button>
+          <button @click="saveNews" class="btn btn-primary">{{ editingNews ? 'Сохранить' : 'Создать' }}</button>
+          <button @click="cancelEdit" class="btn btn-secondary"> Отмена</button>
         </div>
       </div>
     </div>
@@ -48,8 +48,8 @@
           <h3>{{ newsItem.title }}</h3>
           <p class="news-preview">{{ (newsItem.content || newsItem.excerpt || '').substring(0, 100) }}...</p>
           <div class="news-actions">
-            <button @click="editNews(newsItem)" class="btn btn-secondary">✏️ Редактировать</button>
-            <button @click="deleteNews(newsItem.id)" class="btn btn-danger">🗑️ Удалить</button>
+            <button @click="editNews(newsItem)" class="btn btn-secondary"> Редактировать</button>
+            <button @click="deleteNews(newsItem.id)" class="btn btn-danger"> Удалить</button>
           </div>
         </div>
       </div>

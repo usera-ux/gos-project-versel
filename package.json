@@ -11,6 +11,10 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "scripts": {
+    "dev": "json-server --watch db.json --port 3000 & vite",
+    "admin": "vite --open"
+  },
   "dependencies": {
     "autoprefixer": "^10.4.22",
     "axios": "^1.13.2",

@@ -21,7 +21,7 @@
           Мы объединяем ведущих специалистов для развития профессионального сообщества.
         </p>
         <div class="cta-buttons d-flex flex-wrap gap-3">
-          <router-link to="/contact" class="btn btn1 btn-lg px-5 py-3 w-25">
+          <router-link to="/contact" class="btn btn1 btn-lg px-5 py-3 ">
             Вступить в ассоциацию
           </router-link>
           <router-link to="/about" class="btn btn-outline-light btn-lg px-5 py-3">

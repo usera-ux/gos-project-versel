@@ -30,3 +30,4 @@ export const useAuthStore = defineStore('auth', () => {
     isAdmin 
   }
 })
+

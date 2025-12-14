@@ -32,9 +32,9 @@
             <td>{{ formatDate(user.createdAt || user.id) }}</td>
             <td>
               <button @click="toggleAdmin(user)" class="btn btn-small btn-secondary">
-                {{ user.role === 'admin' ? '👑 Убрать админ' : '⭐ Сделать админ' }}
+                {{ user.role === 'admin' ? ' Убрать админ' : 'Сделать админ' }}
               </button>
-              <button @click="deleteUser(user.id)" class="btn btn-small btn-danger">🗑️ Удалить</button>
+              <button @click="deleteUser(user.id)" class="btn btn-small btn-danger"> Удалить</button>
             </td>
           </tr>
         </tbody>

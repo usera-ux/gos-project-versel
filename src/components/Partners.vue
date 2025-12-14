@@ -40,13 +40,13 @@ export default {
     
     const scrollPartners = ref([
       { name: 'Partner 1', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 2', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 3', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 4', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 5', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 6', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 7', logo: 'https://hh.ru/employer-logo/2493021.png' },
-      { name: 'Partner 8', logo: 'https://hh.ru/employer-logo/2493021.png' }
+      { name: 'Partner 2', logo: ' https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/kamp.kz.png' },
+      { name: 'Partner 3', logo: 'https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/itk.kz.jpeg' },
+      { name: 'Partner 4', logo: 'https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/atpk.kz.png' },
+      { name: 'Partner 5', logo: 'https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/askt.kz.png' },
+      { name: 'Partner 6', logo: 'https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/ifac.kz.jpg' },
+      { name: 'Partner 7', logo: 'https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/qaztexindustry.kz.jpg' },
+      { name: 'Partner 8', logo: 'https://agartu.kz/files/sites/1389540635191320/files/widgets/associations/0/ru/ravpb.kz.jpg' }
     ])
     
     const pauseScroll = () => {

@@ -19,7 +19,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const email = ref('admin@kamp.kz')
-const password = ref('admin123')
+const password = ref('')
 const loading = ref(false)
 const router = useRouter()
 

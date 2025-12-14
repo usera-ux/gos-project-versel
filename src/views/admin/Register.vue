@@ -32,7 +32,6 @@ const generateToken = () => {
 
 const register = async () => {
   loading.value = true
-  
   try {
     const response = await fetch('http://localhost:3000/users', {
       method: 'POST',
@@ -45,54 +44,61 @@ const register = async () => {
         createdAt: new Date().toISOString()
       })
     })
-    
-    let userData;
-    
-    if (response.ok) {
-      const fullUser = await response.json()
-      // ✅ БЕЗ ПАРОЛЯ!
-      userData = {
-        id: fullUser.id,
-        email: fullUser.email,
-        name: fullUser.name,
-        role: fullUser.role
-      }
-    } else {
-      // Локальная регистрация
+
+    console.log('STATUS:', response.status)
+
+    let userData
+
+    if (!response.ok) {
+      // запрос дошёл до сервера, но он вернул ошибку (400/500 и т.п.)
+      console.error('HTTP error:', response.status)
+      // fallback — локальный user
       userData = {
         id: Date.now().toString(),
         email: email.value,
         name: name.value,
         role: 'user'
       }
+    } else {
+      const fullUser = await response.json()
+      userData = {
+        id: fullUser.id,
+        email: fullUser.email,
+        name: fullUser.name,
+        role: fullUser.role
+      }
     }
-    
-    // ✅ ТОКЕН + USER БЕЗ ПАРОЛЯ
-    const token = btoa(email.value + Date.now())
+
+    const token = btoa(email.value + ':' + Date.now())
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(userData))
-    
-    window.dispatchEvent(new Event('storage'))
+
+   window.dispatchEvent(new CustomEvent('user-updated'))
+
     router.push('/')
-    
-  } catch {
-    // Локальная регистрация
+
+  } catch (e) {
+    // Сюда попадаем только при сетевой ошибке (сервер не запущен, CORS и т.д.)
+    console.error('NETWORK ERROR:', e)
+
     const userData = {
       id: Date.now().toString(),
       email: email.value,
       name: name.value,
       role: 'user'
     }
-    const token = btoa(email.value + Date.now())
+    const token = btoa(email.value + ':' + Date.now())
     localStorage.setItem('token', token)
-    localStorage.setItem('user', JSON.stringify(userUser))
-    
-    window.dispatchEvent(new Event('storage'))
+    localStorage.setItem('user', JSON.stringify(userData))
+
+    window.dispatchEvent(new CustomEvent('user-updated'))
+
     router.push('/')
   } finally {
     loading.value = false
   }
 }
+
 
 
 </script>

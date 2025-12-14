@@ -87,7 +87,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, #4b6ba2 100%);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -111,7 +111,7 @@ export default {
 
 .welcome-title {
   font-weight: 800;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  background: linear-gradient(135deg, #27349b 0%, #629bdd 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -132,7 +132,7 @@ export default {
 
 .loading-progress {
   height: 100%;
-  background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+ background: linear-gradient(135deg, #27349b 0%, #629bdd 100%);
   border-radius: 2px;
   transition: width 0.05s linear;
 }

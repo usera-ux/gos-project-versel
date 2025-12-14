@@ -1,6 +1,6 @@
 <template>
+  <div class="header-spacer"></div>
   <div class="contacts-page">
-    <!-- Contacts Hero Section -->
     <section class="contacts-hero">
       <div class="container">
         <h1>Свяжитесь с нами</h1>
@@ -32,11 +32,11 @@
           
           <h3>Подписывайтесь на нас:</h3>
           <div class="social-links">
-                    <a href="#" ><img src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png" width="50" alt="Facebook"></a>
-                    <a href="#" ><img src="https://cdn-icons-png.flaticon.com/128/3670/3670051.png" width="45" alt="Twitter"></a>
-                    <a href="#" ><img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" width="45" alt="Telegram"></a>
-                    <a href="#" ><img src="https://cdn-icons-png.flaticon.com/128/3670/3670151.png" width="45" alt="LinkedIn"></a>
-                </div>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/4138/4138124.png" width="50" alt="Facebook"></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3670/3670051.png" width="45" alt="Twitter"></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/2111/2111646.png" width="45" alt="Telegram"></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/3670/3670151.png" width="45" alt="LinkedIn"></a>
+          </div>
         </div>
         
         <div class="contact-form">
@@ -83,9 +83,7 @@
             
             <div class="form-group checkbox">
               <input type="checkbox" id="agree" v-model="form.agree" required>
-              <label for="agree">
-                Я соглашаюсь с обработкой персональных данных
-              </label>
+              <label for="agree">Я соглашаюсь с обработкой персональных данных</label>
             </div>
             
             <div class="privacy-notice">
@@ -100,7 +98,6 @@
             </button>
           </form>
           
-          <!-- Success Message -->
           <div v-if="isSubmitted" class="success-message">
             <div class="success-icon">✓</div>
             <div class="success-text">
@@ -153,52 +150,14 @@ export default {
     const isSubmitting = ref(false)
     const isSubmitted = ref(false)
     
-    const socialLinks = ref([
-      {
-        name: 'Instagram',
-        url: 'https://cdn-icons-png.flaticon.com/128/4138/4138124.png',
-        color: '#e4405f'
-      },
-      {
-        name: 'LinkedIn',
-        icon: 'bi bi-linkedin',
-        url: '#',
-        color: '#0a66c2'
-      },
-      {
-        name: 'Telegram',
-        icon: 'bi bi-telegram',
-        url: '#',
-        color: '#0088cc'
-      },
-      {
-        name: 'YouTube',
-        icon: 'bi bi-youtube',
-        url: '#',
-        color: '#ff0000'
-      }
-    ])
-    
-    const getSocialIcon = (socialName) => {
-      const icons = {
-        'Instagram': 'https://cdn-icons-png.flaticon.com/128/2111/2111463.png',
-        'LinkedIn': 'https://cdn-icons-png.flaticon.com/128/3536/3536505.png',
-        'Telegram': 'https://cdn-icons-png.flaticon.com/128/2111/2111646.png',
-        'YouTube': 'https://cdn-icons-png.flaticon.com/128/187/187210.png'
-      }
-      return icons[socialName] || 'https://cdn-icons-png.flaticon.com/128/3536/3536505.png'
-    }
-    
     const submitForm = () => {
       isSubmitting.value = true
       
-      // Simulate API call
       setTimeout(() => {
         console.log('Form submitted:', form.value)
         isSubmitting.value = false
         isSubmitted.value = true
         
-        // Reset form after submission
         form.value = {
           name: '',
           email: '',
@@ -209,7 +168,6 @@ export default {
           agree: false
         }
         
-        // Hide success message after 5 seconds
         setTimeout(() => {
           isSubmitted.value = false
         }, 5000)
@@ -220,8 +178,6 @@ export default {
       form,
       isSubmitting,
       isSubmitted,
-      socialLinks,
-      getSocialIcon,
       submitForm
     }
   }
@@ -239,33 +195,40 @@ export default {
   --light: #ffffff;
   --gray: #718096;
   --gradient: linear-gradient(135deg, #2c5aa0 0%, #3a6bc8 100%);
-  --gradient-accent: linear-gradient(135deg, #ff6b35 0%, #ff8a65 100%);
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
-body {
-  background: var(--light);
-  color: var(--dark);
-  line-height: 1.6;
-  overflow-x: hidden;
 }
 
 .contacts-page {
   min-height: 100vh;
+  padding-top: 90px;
+}
+
+/* Header Spacer */
+.header-spacer {
+  height: 90px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .contacts-page {
+    padding-top: 80px;
+  }
+  
+  .header-spacer {
+    height: 80px;
+  }
 }
 
 /* Contacts Hero Section */
 .contacts-hero {
   background: var(--gradient);
   color: white;
-  padding: 150px 0 80px;
+  padding: 120px 0 80px;
   text-align: center;
+  margin-top: -100px;
 }
 
 .contacts-hero h1 {
@@ -281,6 +244,12 @@ body {
   opacity: 0.9;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 /* Contacts Content */
 .contacts-content {
   padding: 80px 0;
@@ -292,7 +261,7 @@ body {
   gap: 60px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .contact-info h2 {
@@ -321,37 +290,21 @@ body {
   line-height: 1.6;
 }
 
-.contact-item small {
-  font-size: 0.9rem;
-  color: var(--gray);
-  opacity: 0.8;
-}
-
 .social-links {
   display: flex;
   gap: 15px;
   margin-top: 20px;
 }
 
-.social-link {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.social-links a {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
-.social-link:hover {
+.social-links a:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.social-link img {
-  filter: brightness(0) invert(1);
-  width: 20px;
-  height: 20px;
 }
 
 /* Contact Form */
@@ -359,7 +312,6 @@ body {
   background: white;
   border-radius: 15px;
   padding: 40px;
-  width: 600px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -431,13 +383,6 @@ textarea.form-control {
   accent-color: var(--primary);
 }
 
-.form-group.checkbox label {
-  font-size: 0.9rem;
-  color: var(--gray);
-  margin-bottom: 0;
-  cursor: pointer;
-}
-
 .privacy-notice {
   margin: 20px 0;
   font-size: 0.9rem;
@@ -485,7 +430,6 @@ textarea.form-control {
   to { transform: rotate(360deg); }
 }
 
-/* Success Message */
 .success-message {
   margin-top: 25px;
   padding: 20px;
@@ -522,70 +466,6 @@ textarea.form-control {
   line-height: 1.5;
 }
 
-/* Join CTA Section */
-.join-cta-section {
-  padding: 60px 0;
-  background: var(--secondary);
-}
-
-.join-cta {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 40px;
-  background: var(--gradient);
-  color: white;
-  border-radius: 15px;
-}
-
-.join-cta h3 {
-  font-size: 2rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-
-.join-cta p {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.cta-btn {
-  padding: 15px 40px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.cta-btn.primary {
-  background: white;
-  color: var(--primary);
-}
-
-.cta-btn.primary:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-}
-
-.cta-btn.secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-}
-
-.cta-btn.secondary:hover {
-  background: white;
-  color: var(--primary);
-  transform: translateY(-2px);
-}
-
 /* Map Section */
 .map-section {
   padding: 60px 0;
@@ -601,7 +481,6 @@ textarea.form-control {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px;
-  margin-bottom: 30px;
 }
 
 .map-visual {
@@ -617,70 +496,22 @@ textarea.form-control {
   border-radius: 12px;
 }
 
-.map-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.main-address h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.main-address p {
-  color: var(--gray);
-  font-size: 0.9rem;
-  margin-bottom: 4px;
-}
-
-.view-map-btn {
-  background: var(--primary);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.view-map-btn:hover {
-  background: var(--primary-light);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(44, 90, 160, 0.3);
-}
-
-/* Responsive Styles */
+/* Responsive */
 @media (max-width: 1024px) {
   .contacts-container {
     grid-template-columns: 1fr;
     gap: 40px;
   }
   
-  .cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .cta-btn {
+  .contact-form {
     width: 100%;
-    max-width: 300px;
+    padding: 30px 20px;
   }
 }
 
 @media (max-width: 768px) {
   .contacts-hero {
-    padding: 120px 0 60px;
+    padding: 80px 0 60px;
   }
   
   .contacts-hero h1 {
@@ -691,18 +522,8 @@ textarea.form-control {
     font-size: 1rem;
   }
   
-  .contact-form {
-    padding: 30px 20px;
-  }
-  
-  .map-visual {
-    height: 400px;
-  }
-  
-  .map-footer {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
+  .contacts-content {
+    padding: 40px 0;
   }
   
   .form-row {
@@ -710,20 +531,8 @@ textarea.form-control {
     gap: 20px;
   }
   
-  .form-group.half {
-    width: 100%;
-  }
-  
-  .join-cta {
-    padding: 30px 20px;
-  }
-  
-  .join-cta h3 {
-    font-size: 1.5rem;
-  }
-  
-  .join-cta p {
-    font-size: 1rem;
+  .map-visual {
+    height: 400px;
   }
 }
 </style>

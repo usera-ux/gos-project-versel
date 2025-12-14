@@ -1,19 +1,19 @@
 <template>
-  <div class="admin-layout">
+  <div class="admin-layout" style="margin-top: 70px;">
     <!-- БОКОВОЕ МЕНЮ -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <h2>⚙️ Админ панель</h2>
+        <h2> Админ панель</h2>
       </div>
       <nav class="sidebar-nav">
         <router-link to="/admin" class="nav-item active">
-          📊 Дашборд
+           Дашборд
         </router-link>
         <router-link to="/admin/users" class="nav-item">
-          👥 Пользователи
+          Пользователи
         </router-link>
         <router-link to="/admin/news" class="nav-item">
-          📰 Новости
+          Новости
         </router-link>
       
       </nav>
@@ -21,13 +21,6 @@
     
     <!-- КОНТЕНТ -->
     <main class="admin-content">
-      <header class="admin-header">
-        <h1>{{ $route.meta.title || 'Админ панель' }}</h1>
-        <router-link to="/profile" class="user-info">
-          <div class="user-avatar">{{ userInitial }}</div>
-          <span>{{ userName }}</span>
-        </router-link>
-      </header>
       <div class="admin-main">
         <router-view />
       </div>
@@ -137,4 +130,67 @@ const userName = computed(() => user.value?.name || 'Гость')
   padding: 30px;
   flex: 1;
 }
+/* Адаптив: планшеты и мобильные */
+@media (max-width: 1024px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 16px;
+  }
+
+  .sidebar-header {
+    padding: 0;
+    border-bottom: none;
+    margin-right: 16px;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex: 1;
+    padding: 0;
+    gap: 8px;
+    overflow-x: auto;
+  }
+
+  .nav-item {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-radius: 9999px;
+  }
+
+  .admin-header {
+    padding: 12px 16px;
+  }
+
+  .admin-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .admin-main {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .user-info span {
+    display: none; /* оставляем только кружок‑аватар на очень маленьких экранах */
+  }
+
+  .admin-header {
+    gap: 12px;
+  }
+}
+
 </style>
