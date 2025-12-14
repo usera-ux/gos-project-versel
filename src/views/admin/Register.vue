@@ -25,7 +25,7 @@ const name = ref('')
 const loading = ref(false)
 const router = useRouter()
 
-// ✅ ФУНКЦИЯ ГЕНЕРАЦИИ ТОКЕНА
+
 const generateToken = () => {
   return btoa(email.value + ':' + Date.now() + ':' + Math.random().toString(36).substr(2))
 }
