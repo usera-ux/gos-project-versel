@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -41,7 +41,7 @@ const login = async () => {
     }
   } catch {
     // ✅ Фейк логин если сервер недоступен
-    alert('✅ Вход выполнен! (локальный режим)')
+    alert('✅ Вход выполнен!')
     const fakeUser = {
       id: Date.now(),
       email: email.value,
@@ -57,6 +57,60 @@ const login = async () => {
   }
 }
 
+</script> -->
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const email = ref('admin@kamp.kz')
+const password = ref('')
+const loading = ref(false)
+const router = useRouter()
+
+// ✅ HARDCODED USERS для экзамена (работает везде!)
+const USERS = [
+  {
+    id: 1,
+    email: 'admin@kamp.kz',
+    password: 'admin123',
+    role: 'admin',
+    name: 'Admin KAMP'
+  },
+  {
+    id: 2,
+    email: 'test@test.kz',
+    password: 'test123',
+    role: 'user',
+    name: 'Test User'
+  }
+]
+
+const login = async () => {
+  loading.value = true
+  try {
+    // ✅ НЕТ localhost! Используем hardcoded
+    const user = USERS.find(u => u.email === email.value && u.password === password.value)
+    
+    if (user) {
+      localStorage.setItem('token', 'fake-token')
+      localStorage.setItem('user', JSON.stringify(user))
+      window.dispatchEvent(new Event('storage'))
+      
+      // ✅ Редирект по роли
+      if (user.role === 'admin') {
+        router.push('/admin')
+      } else {
+        router.push('/profile')
+      }
+    } else {
+      alert('❌ Неверный email/пароль')
+    }
+  } catch (error) {
+    alert('❌ Ошибка входа')
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <style scoped>
