@@ -69,7 +69,7 @@ const router = useRouter()
 
 // ✅ HARDCODED USERS
 const USERS = [
-  { id: 1, email: 'admin@kamp.kz', password: 'admin123', role: 'admin', name: 'Admin KAMP' },
+  { id: 1, email: 'admin@kamp.kz', password: 'admin123', role: 'admin', name: 'Admin' },
   { id: 2, email: 'test@test.kz', password: 'test123', role: 'user', name: 'Test User' }
 ]
 

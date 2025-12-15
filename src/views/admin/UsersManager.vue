@@ -1,7 +1,7 @@
 <template>
   <div class="users-manager">
     <div class="page-header">
-      <h1>👥 Управление пользователями</h1>
+      <h1>Управление пользователями</h1>
       <p class="subtitle">{{ users.length }} пользователей</p>
     </div>
 
