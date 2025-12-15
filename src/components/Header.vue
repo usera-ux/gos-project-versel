@@ -245,6 +245,8 @@ const checkUser = () => {
       localStorage.removeItem('user')
       checkUser()
       userMenuOpen.value = false
+
+      window.location.reload()
     }
 
 
