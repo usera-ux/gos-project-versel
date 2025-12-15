@@ -7,22 +7,16 @@
       <div class="floating-shape shape-3"></div>
     </div>
 
-    <!-- Hero Section -->
     <Hero />
-    
-    <!-- Features Section -->
+
     <Features />
-    
-    <!-- Events Section -->
+
     <Events />
-    
-    <!-- Poll Section -->
+
     <Poll />
-    
-    <!-- Accordion Section -->
+
     <Accordion />
-    
-    <!-- Partners Section -->
+
     <Partners />
   </div>
 </template>

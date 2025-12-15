@@ -1,6 +1,6 @@
 <template>
   <div class="president-page">
-    <!-- Header будет вставлен из родительского компонента -->
+ 
     
     <!-- Hero Section -->
     <section class="president-hero">
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <!-- President Message -->
+
         <div class="president-message">
           <div class="message-pattern"></div>
           <div class="message-content">
@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <!-- Members and Partners Section -->
+        
         <section class="members-section">
           <div class="members-container">
             <h2 class="section-title">Члены и партнеры</h2>
@@ -92,7 +92,7 @@
       </div>
     </section>
 
-    <!-- Footer будет вставлен из родительского компонента -->
+  
   </div>
 </template>
 
@@ -141,12 +141,12 @@ export default {
   },
   methods: {
     handleImageError(event) {
-      // Fallback если изображение не загрузилось
+     
       event.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjgwMCIgdmlld0JveD0iMCAwIDYwMCA4MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9IiMyYzVhYTAiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+wrsgUHJlc2lkZW50IPCfkJMgQXNzb2NpYXRpb24gwrs8L3RleHQ+PC9zdmc+';
     },
     
     initAnimations() {
-      // Добавляем анимацию для элементов категорий
+    
       const categoryItems = document.querySelectorAll('.category-item');
       categoryItems.forEach((item, index) => {
         item.style.animationDelay = `${index * 0.1}s`;
@@ -157,7 +157,7 @@ export default {
 </script>
 
 <style scoped>
-/* Сохраняем ВЕСЬ ваш оригинальный CSS */
+
 :root {
     --primary: #2c5aa0;
     --primary-light: #3a6bc8;

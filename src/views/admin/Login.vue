@@ -2,11 +2,34 @@
   <div class="login-container">
     <form @submit.prevent="login" class="login-form">
       <h2>Вход</h2>
-      <input v-model="email" type="email" placeholder="Email" required :disabled="loading">
-      <input v-model="password" type="password" placeholder="Пароль" required :disabled="loading">
+      
+      <input 
+        id="login-email" 
+        name="email" 
+        v-model="email" 
+        type="email" 
+        placeholder="Email" 
+        required 
+        :disabled="loading"
+        autocomplete="email"
+      >
+      <input 
+        id="login-password" 
+        name="password" 
+        v-model="password" 
+        type="password" 
+        placeholder="Пароль" 
+        required 
+        :disabled="loading"
+        autocomplete="current-password"
+      >
+      
       <button type="submit" :disabled="loading">
         {{ loading ? 'Вход...' : 'Войти' }}
       </button>
+      
+      <p v-if="error" class="error">{{ error }}</p>
+      
       <p class="register-link">
         Нет аккаунта? <router-link to="/register">Зарегистрироваться</router-link>
       </p>
@@ -14,130 +37,85 @@
   </div>
 </template>
 
-<!-- <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const email = ref('admin@kamp.kz')
-const password = ref('')
-const loading = ref(false)
-const router = useRouter()
-
-const login = async () => {
-  loading.value = true
-  try {
-    const response = await fetch('http://localhost:3000/users')
-    const users = await response.json()
-    
-    const user = users.find(u => u.email === email.value && u.password === password.value)
-    
-    if (user) {
-      localStorage.setItem('token', 'fake-token')
-      localStorage.setItem('user', JSON.stringify(user))
-      window.dispatchEvent(new Event('storage'))
-      router.push('/')
-    } else {
-      alert('❌ Неверный email/пароль')
-    }
-  } catch {
-    // ✅ Фейк логин если сервер недоступен
-    alert('✅ Вход выполнен!')
-    const fakeUser = {
-      id: Date.now(),
-      email: email.value,
-      name: email.value.split('@')[0],
-      role: 'user'
-    }
-    localStorage.setItem('token', 'fake-token')
-    localStorage.setItem('user', JSON.stringify(fakeUser))
-    window.dispatchEvent(new Event('storage'))
-    router.push('/')
-  } finally {
-    loading.value = false
-  }
-}
-
-</script> -->
 <script setup>
-import { ref, onMounted, watch } from 'vue'  // ✅ ИМПОРТ!
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const email = ref('admin@kamp.kz')
 const password = ref('')
 const loading = ref(false)
-const router = useRouter()
+const error = ref('')
 
-// ✅ HARDCODED USERS
-const USERS = [
-  { id: 1, email: 'admin@kamp.kz', password: 'admin123', role: 'admin', name: 'Admin' },
-  { id: 2, email: 'test@test.kz', password: 'test123', role: 'user', name: 'Test User' }
-]
-
-const login = async () => {
+const login = () => {
+  console.log('🔥 LOGIN:', email.value, password.value)
+  
+  if (!email.value || !password.value) {
+    error.value = 'Заполните все поля!'
+    return
+  }
+  
   loading.value = true
+  error.value = ''
+  
   try {
-    const user = USERS.find(u => u.email === email.value && u.password === password.value)
+    const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]')
+    console.log('📋 Все пользователи:', allUsers)
     
-    if (user) {
-      localStorage.setItem('token', 'fake-token')
-      localStorage.setItem('user', JSON.stringify(user))
+    const storedUser = allUsers.find(u => 
+      u.email === email.value && 
+      u.password === password.value
+    )
+    
+    let userData, token
+    
+    if (storedUser) {
+      userData = {
+        id: storedUser.id,
+        name: storedUser.name,
+        email: storedUser.email,
+        role: storedUser.role,
+      }
+      token = `user-jwt-${storedUser.id}-${Date.now()}`
       
-      // ✅ window.location.href = ПОЛНЫЙ РЕФРЕШ!
-      window.location.href = user.role === 'admin' ? '/admin' : '/profile'
+    } else if (email.value === 'admin@kamp.kz' && password.value === 'admin123') {
+      userData = {
+        id: 0,
+        name: 'Администратор',
+        email: email.value,
+        role: 'admin',
+      }
+      token = `admin-jwt-${Date.now()}`
+      
     } else {
-      alert('❌ Неверный email/пароль')
+      throw new Error('Неверный email или пароль')
     }
+    
+   
+    localStorage.setItem('user', JSON.stringify(userData))
+    localStorage.setItem('token', token)
+    localStorage.setItem('authToken', token)
+    localStorage.setItem('userId', userData.id.toString())
+    
+    console.log('🎉 Токен:', token)
+    
+    setTimeout(() => {
+      window.location.href = userData.role === 'admin' ? '/admin/users' : '/'
+    }, 1500)
+    
+  } catch (err) {
+    error.value = err.message || 'Ошибка авторизации'
   } finally {
     loading.value = false
   }
 }
-
-// ✅ УДАЛИТЕ ВСЁ остальное (onMounted, watch) - НЕ НУЖНО!
 </script>
 
-
 <style scoped>
-.login-container { 
-  max-width: 400px; 
-  margin: 100px auto; 
-  padding: 40px; 
-  background: white; 
-  border-radius: 12px; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-}
-.login-form input { 
-  width: 100%; 
-  padding: 12px; 
-  margin: 10px 0; 
-  border: 1px solid #ddd; 
-  border-radius: 6px; 
-  box-sizing: border-box;
-}
-button { 
-  width: 100%; 
-  padding: 12px; 
-  background: #2c5aa0; 
-  color: white; 
-  border: none; 
-  border-radius: 6px; 
-  cursor: pointer; 
-  font-size: 16px;
-}
-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-.register-link {
-  text-align: center;
-  margin-top: 20px;
-}
-.register-link a {
-  color: #2c5aa0;
-  text-decoration: none;
-}
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
+.login-container { max-width: 400px; margin: 100px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.login-form input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+button { width: 100%; padding: 12px; background: #2c5aa0; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+button:disabled { background: #ccc; cursor: not-allowed; }
+.register-link { text-align: center; margin-top: 20px; }
+.register-link a { color: #2c5aa0; text-decoration: none; }
+h2 { text-align: center; margin-bottom: 20px; color: #333; }
+.error { color: #ef4444; text-align: center; margin: 10px 0; }
 </style>

@@ -8,12 +8,12 @@
       </div>
     </section>
 
-    <!-- Seminars Content -->
+
     <section class="seminars-content">
       <div class="seminars-container">
-        <!-- Сетка семинаров -->
+      
         <div class="seminars-grid">
-          <!-- Семинар Card -->
+  
           <div 
             v-for="(seminar, index) in paginatedSeminars" 
             :key="seminar.id"
@@ -25,11 +25,11 @@
             <h3 class="seminar-title">{{ seminar.title }}</h3>
             <div class="seminar-goal" v-if="seminar.goal">Цель:</div>
             <p class="seminar-description">{{ seminar.description }}</p>
-            <a :href="seminar.link" class="seminar-link">Подробнее →</a>
+            <!-- <a :href="seminar.link" class="seminar-link">Подробнее →</a> -->
           </div>
         </div>
 
-        <!-- Пагинация -->
+   
         <div class="seminars-pagination" v-if="totalPages > 1">
           <button 
             v-for="page in totalPages" 
@@ -63,14 +63,13 @@ export default {
   name: 'Seminars',
 
   setup() {
-    // State
+
     const isScrolled = ref(false)
     const mobileMenuOpen = ref(false)
     const currentPage = ref(1)
     const itemsPerPage = 5
     const seminarCards = ref([])
 
-    // Seminars Data
     const seminars = ref([
       {
         id: 1,
@@ -137,7 +136,6 @@ export default {
       return seminars.value.slice(start, end)
     })
 
-    // Methods
     const handleScroll = () => {
       isScrolled.value = window.scrollY > 50
     }
@@ -154,12 +152,12 @@ export default {
     const changePage = (page) => {
       if (page >= 1 && page <= totalPages.value) {
         currentPage.value = page
-        // Прокрутка к началу страницы
+    
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
         })
-        // Сброс анимаций для новых карточек
+       
         resetCardAnimations()
       }
     }
@@ -172,7 +170,7 @@ export default {
             card.style.transform = 'translateY(30px)'
             card.style.animation = 'none'
             
-            // Перезапуск анимации после небольшой задержки
+            
             setTimeout(() => {
               card.style.opacity = '1'
               card.style.transform = 'translateY(0)'
@@ -183,7 +181,7 @@ export default {
       })
     }
 
-    // Анимация появления карточек
+   
     const setupCardAnimations = () => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -209,7 +207,7 @@ export default {
       })
     }
 
-    // Lifecycle
+
     onMounted(() => {
       window.addEventListener('scroll', handleScroll)
       setupCardAnimations()
@@ -239,7 +237,7 @@ export default {
   position: relative;
 }
 
-/* Seminars Page Styles */
+
 .seminars-hero {
   background: linear-gradient(135deg, #2c5aa0 0%, #3a6bc8 100%);
   color: white;

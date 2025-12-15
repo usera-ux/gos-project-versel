@@ -1,17 +1,17 @@
 <template>
   <div class="news-manager">
-    <!-- ✅ КНОПКА + СПИСОК -->
+    
     <div class="page-header">
       <h2>Новости ({{ news.length }})</h2>
       <button 
         @click="showForm = true; form.title = ''; form.content = ''; form.image = ''" 
         class="btn btn-primary"
       >
-        ➕ Новая новость
+         Новая новость
       </button>
     </div>
 
-    <!-- ✅ ФОРМА (адаптивная карточка сверху) -->
+
     <div v-if="showForm" class="card mb-4">
       <div class="card-header">
         <h4>{{ editingNews ? 'Редактировать' : '➕ Новая новость' }}</h4>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <!-- ✅ СПИСОК НОВОСТЕЙ -->
+
     <div class="news-grid">
       <div v-if="news.length === 0" class="empty-state">
         <p>Нет новостей. Создайте первую!</p>
@@ -76,7 +76,7 @@ const loadNews = async () => {
     console.log('🔄 Загрузка:', `${API_URL}`)
     const response = await fetch(API_URL)
     const data = await response.json()
-    console.log('✅ Данные:', data)
+    console.log(' Данные:', data)
     news.value = data
   } catch {
     news.value = []
@@ -105,10 +105,10 @@ const saveNews = async () => {
       news.value.unshift(newNews)
     }
     
-    alert('✅ Новость сохранена!')
+    alert('Новость сохранена!')
     cancelEdit()
   } catch {
-    alert('✅ Сохранено локально!')
+    alert('Сохранено локально!')
     cancelEdit()
   }
 }
@@ -330,7 +330,6 @@ const cancelEdit = () => {
   font-size: clamp(1em, 4vw, 1.1em);
 }
 
-/* ✅ МОБИЛЬНАЯ АДАПТАЦИЯ */
 @media (max-width: 768px) {
   .news-manager {
     padding: 15px;

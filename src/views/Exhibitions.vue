@@ -14,9 +14,9 @@
     <!-- Exhibitions Content -->
     <section class="exhibitions-content">
       <div class="exhibitions-container">
-        <!-- Сетка выставок -->
+ 
         <div class="exhibitions-grid">
-          <!-- Выставка Card -->
+ 
           <div 
             v-for="(exhibition, index) in paginatedExhibitions" 
             :key="exhibition.id"
@@ -36,7 +36,7 @@
               </div>
               <div class="exhibition-industry">{{ exhibition.industry }}</div>
               <p class="exhibition-description">{{ exhibition.description }}</p>
-              <a :href="exhibition.link" class="exhibition-link">Подробнее →</a>
+             
             </div>
           </div>
         </div>
@@ -74,14 +74,14 @@ export default {
   name: 'Exhibitions',
 
   setup() {
-    // State
+
     const isScrolled = ref(false)
     const mobileMenuOpen = ref(false)
     const currentPage = ref(1)
     const itemsPerPage = 6
     const exhibitionCards = ref([])
 
-    // Exhibitions Data
+
     const exhibitions = ref([
       {
         id: 1,
@@ -149,10 +149,10 @@ export default {
         image: 'http://kamp.kz/files/sites/1369648304051529/files/kazagro.png',
         link: '#'
       },
-      // Добавьте больше выставок здесь если нужно
+      
     ])
 
-    // Computed
+
     const totalPages = computed(() => {
       return Math.ceil(exhibitions.value.length / itemsPerPage)
     })
@@ -163,7 +163,7 @@ export default {
       return exhibitions.value.slice(start, end)
     })
 
-    // Methods
+
     const handleScroll = () => {
       isScrolled.value = window.scrollY > 50
     }
@@ -180,7 +180,7 @@ export default {
     const changePage = (page) => {
       if (page >= 1 && page <= totalPages.value) {
         currentPage.value = page
-        // Прокрутка к началу страницы
+        
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
@@ -188,7 +188,7 @@ export default {
       }
     }
 
-    // Анимация появления карточек
+
     const setupCardAnimations = () => {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -214,7 +214,7 @@ export default {
       })
     }
 
-    // Lifecycle
+
     onMounted(() => {
       window.addEventListener('scroll', handleScroll)
       setupCardAnimations()

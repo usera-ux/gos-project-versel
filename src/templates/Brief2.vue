@@ -136,6 +136,58 @@ export default {
           isVisible: false,
           isHovered: false,
           rotation: { x: 0, y: 0 }
+        },
+           {
+          id: 2,
+          title: "Business Models Report",
+          description: "Элегантный шаблон для отчетов о бизнес-моделях и аналитики",
+          type: "business",
+          slides: 3,
+          imageUrl: "https://i.pinimg.com/736x/a9/2b/d3/a92bd37c66bb6d810e0c0ca7be714e5e.jpg",
+          viewUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          downloadUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          isVisible: false,
+          isHovered: false,
+          rotation: { x: 0, y: 0 }
+        },
+           {
+          id: 4,
+          title: "Customer Satisfaction Assessment Template",
+          description: "Шаблон оценки уровня удовлетворенности клиентов",
+          type: "business",
+          slides: 3,
+          imageUrl: "https://i.pinimg.com/736x/a9/2b/d3/a92bd37c66bb6d810e0c0ca7be714e5e.jpg",
+          viewUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          downloadUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          isVisible: false,
+          isHovered: false,
+          rotation: { x: 0, y: 0 }
+        },
+           {
+          id: 3,
+          title: "Pricing survey template",
+          description: "Шаблон опроса по ценообразованию",
+          type: "business",
+          slides: 3,
+          imageUrl: "https://i.pinimg.com/736x/a9/2b/d3/a92bd37c66bb6d810e0c0ca7be714e5e.jpg",
+          viewUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          downloadUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          isVisible: false,
+          isHovered: false,
+          rotation: { x: 0, y: 0 }
+        },
+           {
+          id: 5,
+          title: "Comparative price analysis of competitors",
+          description: "Сравнительный анализ цен по конкурентам",
+          type: "business",
+          slides: 3,
+          imageUrl: "https://i.pinimg.com/736x/a9/2b/d3/a92bd37c66bb6d810e0c0ca7be714e5e.jpg",
+          viewUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          downloadUrl: "https://view.officeapps.live.com/op/view.aspx?src=http://kamp.kz//files/sites/1369648304051529/files/widgets/book-catalog/1413445775755491/ru/brif_dlya_zakaza_kreativnyh_uslug.doc",
+          isVisible: false,
+          isHovered: false,
+          rotation: { x: 0, y: 0 }
         }
       ]
     }
@@ -146,12 +198,10 @@ export default {
     const titleVisible = ref(false)
     let observer = null
 
-    // Обработчик ошибки изображения
     const handleImageError = (event) => {
       event.target.src = 'https://via.placeholder.com/80x60/667eea/ffffff?text=Template'
     }
 
-    // Обработчики мыши для 3D эффекта
     const handleMouseEnter = (template) => {
       template.isHovered = true
     }
@@ -164,11 +214,11 @@ export default {
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
       
-      // Установка позиции для градиента
+    
       card.style.setProperty('--mx', `${x}px`)
       card.style.setProperty('--my', `${y}px`)
       
-      // 3D вращение
+
       const rotateY = ((x - rect.width / 2) / 20)
       const rotateX = -((y - rect.height / 2) / 20)
       
@@ -180,7 +230,7 @@ export default {
       template.isHovered = false
       template.rotation = { x: 0, y: 0 }
       
-      // Сброс трансформации
+      
       const cards = document.querySelectorAll('.template-card')
       cards.forEach(card => {
         if (card.dataset.id === template.id.toString()) {
@@ -198,9 +248,9 @@ export default {
       `
     }
 
-    // Инициализация Intersection Observer
+
     const initObservers = () => {
-      // Observer для заголовка
+ 
       const titleObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
@@ -217,7 +267,7 @@ export default {
         titleObserver.observe(titleElement)
       }
 
-      // Observer для карточек
+      
       observer = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
@@ -233,7 +283,7 @@ export default {
         { threshold: 0.15 }
       )
 
-      // Начать наблюдение за карточками после рендера
+      
       setTimeout(() => {
         document.querySelectorAll('.template-card').forEach(card => {
           observer.observe(card)
@@ -241,9 +291,9 @@ export default {
       }, 100)
     }
 
-    // Инициализация страницы
+   
     const init = () => {
-      // Симуляция загрузки
+     
       setTimeout(() => {
         try {
           templates.value = templatesData.templates.map(t => ({
@@ -255,7 +305,7 @@ export default {
           
           loading.value = false
           
-          // Инициализировать observers после рендера
+     
           setTimeout(() => {
             initObservers()
           }, 50)

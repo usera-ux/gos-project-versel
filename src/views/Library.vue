@@ -761,7 +761,7 @@ export default {
             z-index: 1001;
         }
         
-        /* Books Page Styles */
+    
         .books-hero {
           
            

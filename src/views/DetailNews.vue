@@ -6,7 +6,6 @@
     <div class="floating-shape" :style="shapeStyle(3)"></div>
     <div class="floating-shape" :style="shapeStyle(4)"></div>
 
-    <!-- Header Component -->
     <AppHeader :scrolled="isScrolled" @toggle-mobile="toggleMobileMenu" />
 
     <!-- News Detail -->
@@ -159,13 +158,12 @@ export default {
       }
     }
 
-    // State
+ 
     const isScrolled = ref(false)
     const currentNewsId = ref('news1')
     const currentNews = ref(newsData['news1'])
     const mobileMenuOpen = ref(false)
 
-    // Computed
     const newsIds = computed(() => Object.keys(newsData))
     const currentIndex = computed(() => newsIds.value.indexOf(currentNewsId.value))
     const hasPrev = computed(() => currentIndex.value > 0)
@@ -173,7 +171,7 @@ export default {
     const prevNewsId = computed(() => hasPrev.value ? newsIds.value[currentIndex.value - 1] : '')
     const nextNewsId = computed(() => hasNext.value ? newsIds.value[currentIndex.value + 1] : '')
 
-    // Methods
+    
     const loadNewsData = (id) => {
       if (newsData[id]) {
         currentNewsId.value = id
@@ -218,16 +216,15 @@ export default {
       }
     }
 
-    // Lifecycle
+
     onMounted(() => {
-      // Get news ID from URL
+      
       const urlParams = new URLSearchParams(window.location.search)
       const idFromURL = urlParams.get('id')
       if (idFromURL && newsData[idFromURL]) {
         loadNewsData(idFromURL)
       }
 
-      // Scroll event
       window.addEventListener('scroll', handleScroll)
     })
 
@@ -250,7 +247,7 @@ export default {
 </script>
 
 <style scoped>
-/* Анимации */
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0) rotate(0deg);

@@ -8,7 +8,7 @@
       <div class="floating-shape shape-4"></div>
     </div>
 
-    <!-- Hero Section -->
+
     <section class="news-hero">
       <div class="container">
         <h1>Новости</h1>
@@ -16,7 +16,7 @@
       </div>
     </section>
 
-    <!-- 🔍 ПОИСК -->
+
     <div class="search-container">
       <div class="container">
         <input 
@@ -33,24 +33,24 @@
       <div class="news-container">
         
 
-        <!-- Loading State -->
+
         <div v-if="loading" class="loading-state">
           <div class="loading-spinner"></div>
           <p>Загружаем новости с API...</p>
         </div>
 
-        <!-- Error State -->
+      
         <div v-else-if="error" class="error-state">
           <p>Ошибка API: {{ error }}</p>
-          <button @click="fetchNews" class="retry-btn">🔄 Попробовать снова</button>
+          <button @click="fetchNews" class="retry-btn"> Попробовать снова</button>
         </div>
 
-        <!-- Empty State -->
+  
         <div v-else-if="filteredNews.length === 0" class="empty-state">
-          <p>{{ search ? '📰 Новостей не найдено' : 'Новостей пока нет' }}</p>
+          <p>{{ search ? ' Новостей не найдено' : 'Новостей пока нет' }}</p>
         </div>
 
-        <!-- News Grid -->
+    
         <div v-else class="news-grid">
           <div 
             v-for="(newsItem, index) in paginatedFilteredNews" 
@@ -82,7 +82,6 @@
           </div>
         </div>
 
-        <!-- Пагинация -->
         <div v-if="filteredNews.length > itemsPerPage" class="news-pagination">
           <button 
             v-for="page in filteredTotalPages" 
@@ -139,13 +138,13 @@ export default {
     }
   },
   mounted() {
-    console.log('🚀 Загружаем новости с API...')
+    console.log('Загружаем новости с API...')
     this.fetchNews()
   },
   methods: {
     async fetchNews() {
       try {
-        console.log('📡 Запрос:', this.API_URL)
+        console.log(' Запрос:', this.API_URL)
         this.loading = true
         this.error = null
         
@@ -156,7 +155,7 @@ export default {
         }
         
         const data = await response.json()
-        console.log('✅ Данные:', data.length)
+        console.log(' Данные:', data.length)
       
         if (Array.isArray(data)) {
           this.news = data.map(item => ({
@@ -173,7 +172,7 @@ export default {
         }
         
       } catch (error) {
-        console.error('❌ Ошибка:', error)
+        console.error(' Ошибка:', error)
         this.error = error.message
         this.news = this.createFallbackData()
       } finally {

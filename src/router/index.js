@@ -12,9 +12,6 @@ import Seminars from '../views/Seminars.vue'
 import NotFound from '../views/NotFound.vue'
 import Library from '../views/Library.vue'
 import Contact from '../views/Contact.vue'
-import Brief from '../templates/Brief2.vue'
-import Powerpoint from '../templates/Powerpoint.vue'
-import Question from '../templates/Question.vue'
 import MarketAnalysis from '../templates/MarketAnalysis.vue'
 import Brief2 from '../templates/Brief2.vue'
 
@@ -31,15 +28,13 @@ const routes = [
   { path: '/seminars', name: 'Seminars', component: Seminars },
   { path: '/notfound', name: 'NotFound', component: NotFound },
   { path: '/library', name: 'Library', component: Library },
-  { path: '/powerpoint', name: 'Powerpoint', component: Powerpoint },
-  { path: '/question', name: 'Question', component: Question },
   { path: '/marketing-analysis', name: 'MarketAnalysis', component: MarketAnalysis },
   { path: '/brief', name: 'Brief', component:Brief2 },
   {
     path: '/:pathMatch(.*)*',
     redirect: '/notfound'
   },
-  // Добавьте в конец routes массива ДО catch-all:
+
 {
   path: '/admin',
 component: () => import('../views/admin/AdminLayout.vue'),
@@ -47,7 +42,7 @@ component: () => import('../views/admin/AdminLayout.vue'),
     { path: '', component: () => import('../views/admin/Dashboard.vue') },
     { path: 'news', component: () => import('../views/admin/NewsManager.vue') },
     { path: 'users', component: () => import('../views/admin/UsersManager.vue') },
-    { path: 'events', component: () => import('../views/admin/EventsManager.vue') }
+  
   ]
 },
 { path: '/login', name: 'Login', component: () => import('../views/admin/Login.vue') },
@@ -61,7 +56,7 @@ const router = createRouter({
   routes
 })
 
-// ✅ ПРОСТАЯ защита БЕЗ Pinia (пока)
+
 router.beforeEach((to, from, next) => {
   const user = JSON.parse(localStorage.getItem('user') || 'null')
   if (to.path.startsWith('/admin') && (!user || user.role !== 'admin')) {

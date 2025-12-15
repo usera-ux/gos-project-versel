@@ -1,6 +1,6 @@
 <template>
   <div class="activities-page">
-    <!-- Animated Background -->
+
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>
@@ -8,7 +8,7 @@
       <div class="floating-shape shape-4"></div>
     </div>
 
-    <!-- Hero Section -->
+
     <section class="activities-hero">
       <div class="container">
         <h1>Виды деятельности ассоциации</h1>
@@ -16,7 +16,7 @@
       </div>
     </section>
 
-    <!-- Activities Section -->
+
     <section class="activities-section">
       <div class="container">
         <div class="section-title">
@@ -25,7 +25,7 @@
         </div>
         
         <div class="activities-grid">
-          <!-- Activity Cards -->
+ 
           <div 
             v-for="(activity, index) in activities" 
             :key="index" 
@@ -96,10 +96,10 @@ export default {
     }
   },
   mounted() {
-    // Scroll handler для header
+  
     window.addEventListener('scroll', this.handleScroll)
     
-    // Intersection Observer для анимаций
+    
     this.setupAnimations()
   },
   beforeUnmount() {

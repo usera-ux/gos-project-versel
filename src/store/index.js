@@ -24,11 +24,11 @@ export const useMainStore = defineStore('main', {
     voteInPoll(option) {
       if (this.userVoted) return
       
-      // Увеличиваем счетчик выбранного варианта
+   
       this.pollVotes[`option${option}`] += 1
       this.userVoted = true
       
-      // Пересчитываем проценты
+
       this.updatePercentages()
     },
     updatePercentages() {

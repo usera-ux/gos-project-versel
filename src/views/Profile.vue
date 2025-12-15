@@ -1,6 +1,6 @@
 <template>
   <div class="profile-layout mt-5">
-    <!-- Левая колонка меню -->
+   
     <aside class="profile-sidebar">
     
       <nav class="side-nav">
@@ -28,14 +28,14 @@
       </nav>
     </aside>
 
-    <!-- Правая часть: профиль -->
+
     <main class="profile-main">
       <header class="profile-top">
         <h1>{{ activeTab === 'profile' ? 'Profile Settings' : 'Change Password' }}</h1>
       </header>
 
       <section class="profile-content">
-        <!-- Вкладка: профиль -->
+
         <template v-if="activeTab === 'profile'">
           <div class="profile-header-row">
             <div class="avatar-wrapper">
@@ -104,7 +104,7 @@
           </form>
         </template>
 
-        <!-- Вкладка: пароль -->
+
         <template v-else>
           <form class="profile-form" @submit.prevent="changePassword">
             <div class="form-row">
@@ -178,7 +178,7 @@ onMounted(() => {
 
   user.value = JSON.parse(data)
 
-  // Заполняем форму данными пользователя
+
   editForm.value.firstName = user.value.firstName || user.value.name || ''
   editForm.value.lastName = user.value.lastName || ''
   editForm.value.email = user.value.email || ''
@@ -215,7 +215,7 @@ const saveProfile = () => {
     ...user.value,
     firstName: editForm.value.firstName,
     lastName: editForm.value.lastName,
-    name: editForm.value.firstName || user.value.name, // для обратной совместимости
+    name: editForm.value.firstName || user.value.name, 
     email: editForm.value.email,
     phone: editForm.value.phone,
     address: editForm.value.address,
@@ -229,19 +229,19 @@ const saveProfile = () => {
 
 const changePassword = () => {
   if (passwordForm.value.newPass !== passwordForm.value.confirm) {
-    alert('❌ Пароли не совпадают')
+    alert(' Пароли не совпадают')
     return
   }
   
   if (passwordForm.value.newPass.length < 6) {
-    alert('❌ Новый пароль должен содержать минимум 6 символов')
+    alert(' Новый пароль должен содержать минимум 6 символов')
     return
   }
 
-  // Здесь можно добавить реальный запрос на сервер
-  alert('✅ Пароль обновлён')
+
+  alert(' Пароль обновлён')
   
-  // Очищаем форму
+
   passwordForm.value.current = ''
   passwordForm.value.newPass = ''
   passwordForm.value.confirm = ''

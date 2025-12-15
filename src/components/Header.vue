@@ -27,7 +27,7 @@
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('training', $event)">Обучение</a>
             <div class="dropdown-menu">
               <div class="dropdown-submenu">
-                <router-link to="/powerpoint" class="dropdown-item dropdown-toggle" @click.prevent="toggleSubmenu($event)">
+                <router-link to="/brief" class="dropdown-item dropdown-toggle" @click.prevent="toggleSubmenu($event)">
                   Шаблоны для маркетологов
                 </router-link>
               </div>
@@ -108,9 +108,9 @@ export default {
     const user = reactive({ name: '', initial: '' })
 
 
-    // ✅ ВСЕ ФУНКЦИИ ИЗ ВАШЕГО КОДА
+   
     const initAllFunctions = () => {
-      // 1. Welcome Overlay
+   
       const welcomeOverlay = document.getElementById('welcomeOverlay')
       const hasSeenWelcome = localStorage.getItem('hasSeenWelcome')
       if (welcomeOverlay && !hasSeenWelcome) {
@@ -123,7 +123,7 @@ export default {
       }
 
 
-      // 2. Scroll Header
+
       const handleScroll = () => {
         const header = document.getElementById('header')
         if (window.scrollY > 50) {
@@ -137,7 +137,7 @@ export default {
       window.addEventListener('scroll', handleScroll)
 
 
-      // 3. Dropdown Hover (как в вашем коде)
+  
       const dropdowns = document.querySelectorAll('.dropdown')
       dropdowns.forEach(dropdown => {
         dropdown.addEventListener('mouseenter', function() {
@@ -164,7 +164,7 @@ export default {
       })
 
 
-      // 4. Mobile Submenu Toggle
+    
       document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
         toggle.addEventListener('click', function(e) {
           if (window.innerWidth <= 768) {
@@ -180,7 +180,7 @@ export default {
   await nextTick()
   initAllFunctions()
 
-  // слушаем обновление пользователя
+
   window.addEventListener('user-updated', checkUser)
 })
 
@@ -189,7 +189,7 @@ onUnmounted(() => {
 })
 
 
-      // 5. Mobile Menu Toggle
+     
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn')
       const navMain = document.querySelector('.nav-main')
       if (mobileMenuBtn && navMain) {
@@ -222,7 +222,7 @@ const checkUser = () => {
       const parsed = JSON.parse(userData)
       user.name = parsed.name || parsed.firstName || 'U'
       user.initial = (user.name[0] || 'U').toUpperCase()
-      user.avatar = parsed.avatar || ''  // ← добавь эту строку
+      user.avatar = parsed.avatar || ''  
     } catch {
       user.name = ''
       user.initial = 'U'
@@ -309,7 +309,7 @@ const checkUser = () => {
 
 
     onUnmounted(() => {
-      // Cleanup
+    
     })
 
 

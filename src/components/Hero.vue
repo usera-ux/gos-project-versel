@@ -1,12 +1,12 @@
 <template>
   <section class="hero position-relative overflow-hidden">
-    <!-- Hero Slider -->
+
     <div class="hero-slider position-absolute w-100 h-100">
       <div class="slide slide-1 position-absolute w-100 h-100" :class="{ 'active': currentSlide === 0 }"></div>
       <div class="slide slide-2 position-absolute w-100 h-100" :class="{ 'active': currentSlide === 1 }"></div>
     </div>
     
-    <!-- Overlay -->
+  
     <div class="hero-overlay position-absolute w-100 h-100"></div>
     
     <div class="container position-relative">
@@ -29,7 +29,7 @@
           </router-link>
         </div>
         
-        <!-- Slider Dots -->
+   
         <div class="slider-dots d-flex gap-2 mt-5">
           <button 
             v-for="n in 2" 

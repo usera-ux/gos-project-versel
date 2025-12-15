@@ -8,9 +8,7 @@
       <div class="floating-shape shape-4"></div>
     </div>
     
-  
 
-    <!-- Main Content -->
     <main>
       <div class="content">
         <h2>Пока что тут пусто</h2>
@@ -30,11 +28,11 @@ export default {
   name: 'notfound',
 
   setup() {
-    // State
+  
     const isScrolled = ref(false)
     const mobileMenuOpen = ref(false)
 
-    // Methods
+
     const handleScroll = () => {
       isScrolled.value = window.scrollY > 50
     }
@@ -48,7 +46,6 @@ export default {
       }
     }
 
-    // Close mobile menu when clicking outside
     const handleClickOutside = (event) => {
       const navMain = document.querySelector('.nav-main')
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn')
@@ -62,7 +59,7 @@ export default {
       }
     }
 
-    // Lifecycle
+  
     onMounted(() => {
       window.addEventListener('scroll', handleScroll)
       document.addEventListener('click', handleClickOutside)

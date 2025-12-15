@@ -2,10 +2,7 @@
   <section class="partners py-5">
     <div class="container">
       <h2 class="section-title text-center mb-10 mt-5">Наши партнеры</h2>
-      
-   
-      
-      <!-- Автопрокрутка для десктопа -->
+
       <div class="d-none d-lg-block">
         <div class="partners-scroll mt-5" @mouseenter="pauseScroll" @mouseleave="resumeScroll">
           <div class="partners-inner">

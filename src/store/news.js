@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useNewsStore = defineStore('news', {
   state: () => ({
-    news: []  // Загружаем с API
+    news: [] 
   }),
   
   actions: {
