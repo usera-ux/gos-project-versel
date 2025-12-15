@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -79,7 +79,7 @@ const register = async () => {
 
   } catch (e) {
     // Сюда попадаем только при сетевой ошибке (сервер не запущен, CORS и т.д.)
-    console.error('NETWORK ERROR:', e)
+    console.error('NETWORK ERROR:',e)
 
     const userData = {
       id: Date.now().toString(),
@@ -101,6 +101,43 @@ const register = async () => {
 
 
 
+</script> -->
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const email = ref('')
+const password = ref('')
+const name = ref('')
+const loading = ref(false)
+const router = useRouter()
+
+const register = async () => {
+  loading.value = true
+  try {
+    // ✅ УДАЛЯЕМ localhost! HARDCODED регистрация
+    const userData = {
+      id: Date.now().toString(),
+      email: email.value,
+      name: name.value,
+      role: 'user',
+      createdAt: new Date().toISOString()
+    }
+    
+    const token = btoa(email.value + ':' + Date.now())
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(userData))
+    
+    // ✅ window.location.href = ПОЛНЫЙ РЕФРЕШ!
+    window.location.href = '/profile'
+    
+  } catch (e) {
+    console.error('Ошибка регистрации:', e)
+    alert('❌ Ошибка регистрации')
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <style scoped>
