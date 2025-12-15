@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "server/**/*.js": {
-      "maxDuration": 1
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
