@@ -27,7 +27,7 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
+            <!-- <tbody>
               <tr v-for="user in users" :key="user.id" class="user-row">
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
@@ -47,7 +47,7 @@
                   </button>
                 </td>
               </tr>
-            </tbody>
+            </tbody> -->
           </table>
         </div>
 
