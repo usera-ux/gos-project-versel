@@ -1,83 +1,93 @@
+
 ```md
-#  KAMP — Казахстанская Ассоциация маркетологов профессионалов
+# KAMP — Kazakhstan Association of Professional Marketers
 
-WEB сайт Казахстанская Ассоциация маркетологов профессионалов
-Общественная организация, целью которой является создание максимальных условий для внедрения передовых методов маркетинга и продвижения товаров и услуг. Мы объединяем ведущих специалистов для развития профессионального сообщества.
-
->
----
-
-##  Live Demo
- https://gos-project-versel.vercel.app
+KAMP is a web application for the Kazakhstan Association of Professional Marketers, a public organization aimed at creating optimal conditions for implementing advanced marketing methods and promoting goods and services. We unite leading professionals to develop a strong professional community.
 
 ---
 
-##  Backend API
+## Live Demo
+https://gos-project-versel.vercel.app
+
+---
+
+## Backend API
 - **MockAPI (REST)**
-- Реальные CRUD-операции
-- Динамические данные (не захардкожены)
+- Real CRUD operations
+- Dynamic data (not hardcoded)
 
 ---
 
-##  Тестовые аккаунты
+## Test Accounts
 
-| Роль | Email | Пароль |
-|------|-------|--------|
+| Role | Email | Password |
+|------|-------|---------|
 | **Admin** | admin@kamp.kz | admin123 |
 
-> Пользовательская роль доступна после обычного входа (без прав администратора).
+> User role is available after a regular login (without admin privileges).
 
 ---
 
-##  Функционал
+## Functionality
 
-### Пользователь (User)
-- Личный профиль — `/profile`
-- Просмотр новостей — `/news`
-- Защищённые маршруты (доступ только после логина)
-- Адаптивная мобильная версия
-- Обработка состояний: `loading / error / empty`
+### User
+- Personal profile — `/profile`
+- News feed — `/news`
+- Protected routes (accessible only after login)
+- Responsive mobile design
+- Handles loading, error, and empty states
 
-### Администратор (Admin)
-- Админ-панель — `/admin`
-- Создание новостей — `/admin/news`
-- Редактирование новостей
-- Удаление новостей
-- Полные CRUD-операции через API
-- Ограниченный доступ (только для admin-роли)
+### Admin
+- Admin panel — `/admin`
+- Create news — `/admin/news`
+- Edit news
+- Delete news
+- Full CRUD operations via API
+- Restricted access (admin-only)
 
 ---
 
-##  Аутентификация и безопасность
+## Authentication & Security
 - JWT Token
-- Хранение токена в `localStorage`
-- Защищённые маршруты (User / Admin)
-- Проверка роли перед доступом к admin-панели
+- Token stored in `localStorage`
+- Protected routes (User / Admin)
+- Role verification before accessing admin panel
 
 ---
 
-##  Роутинг
-- `/login` — авторизация  
-- `/news` — список новостей  
-- `/profile` — профиль пользователя  
-- `/admin` — админ-панель  
-- `/admin/news` — управление новостями  
+##  Routing
+- `/login` — Login page  
+- `/news` — News feed  
+- `/profile` — User profile  
+- `/admin` — Admin panel  
+- `/admin/news` — Manage news  
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
-| Категория       | Технологии |
-|-----------------|------------|
-| Frontend        | Vue 3, Vite, Vue Router, Axios |
-| Backend         | MockAPI, REST API |
-| UI / UX         | TailwindCSS, Glassmorphism, Responsive |
-| State & Auth    | localStorage, JWT Token, Protected Routes |
-
+| Category       | Technologies |
+|----------------|-------------|
+| Frontend       | Vue 3, Vite, Vue Router, Axios |
+| Backend        | MockAPI, REST API |
+| UI / UX        | TailwindCSS, Glassmorphism, Responsive |
+| State & Auth   | localStorage, JWT Token, Protected Routes |
 
 ---
 
-##  Статус проекта
-Проект полностью готов, задеплоен и доступен по публичному URL.  
+## Core Features
 
+* Authentication (login + token storage)
+* Role-based protected routes
+* CRUD operations via API
+* Dynamic data (no hardcoded content)
+* Handles loading, error, and empty states
+* Responsive UI
+* Clean component architecture
+* Notifications for success/error actions
+
+---
+
+## Deployment
+* **Vercel**
 ```
