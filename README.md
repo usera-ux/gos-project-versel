@@ -67,11 +67,12 @@ WEB сайт Казахстанская Ассоциация маркетоло�
 
 ##  Tech Stack
 
-## 🛠 Tech Stack
-
-| Frontend          | Backend   | UI / UX          | State & Auth        |
-|------------------|----------|-----------------|-------------------|
-| Vue 3, Vite, Vue Router, Axios | MockAPI, REST API | TailwindCSS, Glassmorphism, Responsive | localStorage, JWT Token, Protected Routes |
+| Категория       | Технологии |
+|-----------------|------------|
+| Frontend        | Vue 3, Vite, Vue Router, Axios |
+| Backend         | MockAPI, REST API |
+| UI / UX         | TailwindCSS, Glassmorphism, Responsive |
+| State & Auth    | localStorage, JWT Token, Protected Routes |
 
 
 ---
