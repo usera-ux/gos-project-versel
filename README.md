@@ -13,7 +13,7 @@
 | Роль | Email | Пароль |
 |------|-------|--------|
 | **Admin** | `admin@kamp.kz` | `admin123` |
-| **User** | `test@test.kz` | `test123` |
+
 
 ##  Функционал
 
