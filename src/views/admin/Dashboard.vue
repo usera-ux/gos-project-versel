@@ -63,19 +63,19 @@ onMounted(async () => {
 .dashboard-header h1 {
   color: #2c5aa0;
   margin: 0 0 10px 0;
-  font-size: clamp(1.8em, 5vw, 2.5em); /* ✅ Адаптивный размер */
+  font-size: clamp(1.8em, 5vw, 2.5em); 
 }
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ✅ Уменьшен минимум */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
   gap: 20px;
   margin-bottom: 40px;
 }
 
 .stat-card {
   background: white;
-  padding: 25px 20px; /* ✅ Уменьшены отступы */
+  padding: 25px 20px; 
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   text-align: center;
@@ -88,12 +88,12 @@ onMounted(async () => {
 
 .stat-card h3 {
   margin: 0 0 15px 0;
-  font-size: clamp(1em, 4vw, 1.1em); /* ✅ Адаптивный */
+  font-size: clamp(1em, 4vw, 1.1em);
   opacity: 0.8;
 }
 
 .stat-number {
-  font-size: clamp(2em, 8vw, 2.5em); /* ✅ Адаптивный */
+  font-size: clamp(2em, 8vw, 2.5em);
   font-weight: bold;
   margin: 0;
   line-height: 1.2;
@@ -131,14 +131,14 @@ onMounted(async () => {
   border-bottom: none;
 }
 
-/* ✅ МОБИЛЬНЫЕ УЛУЧШЕНИЯ */
+
 @media (max-width: 768px) {
   .admin-dashboard {
     padding: 15px;
   }
   
   .stats-grid {
-    grid-template-columns: 1fr; /* ✅ Одна колонка на мобильных */
+    grid-template-columns: 1fr; 
     gap: 15px;
   }
   

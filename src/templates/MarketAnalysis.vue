@@ -105,7 +105,7 @@ import { ref, onMounted } from 'vue'
 export default {
   name: 'MarketAnalysis',
   setup() {
-    // Ваши данные из JSON
+
     const templatesData = {
       "templates": [
         {
@@ -137,12 +137,11 @@ export default {
     const titleVisible = ref(false)
     let observer = null
 
-    // Обработчик ошибки изображения
     const handleImageError = (event) => {
       event.target.src = 'https://via.placeholder.com/80x60/667eea/ffffff?text=Template'
     }
 
-    // Обработчики кликов на кнопки
+
     const handleViewClick = (templateId) => {
       console.log('Просмотр шаблона ID:', templateId)
     }
@@ -151,7 +150,7 @@ export default {
       console.log('Скачивание шаблона ID:', templateId)
     }
 
-    // Обработчики мыши для 3D эффекта
+
     const handleMouseEnter = (template) => {
       template.isHovered = true
     }
@@ -164,11 +163,11 @@ export default {
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
       
-      // Установка позиции для градиента
+ 
       card.style.setProperty('--mx', `${x}px`)
       card.style.setProperty('--my', `${y}px`)
       
-      // 3D вращение
+      
       const rotateY = ((x - rect.width / 2) / 20)
       const rotateX = -((y - rect.height / 2) / 20)
       

@@ -6,7 +6,7 @@
       <div class="floating-shape shape-2"></div>
     </div>
 
-    <!-- Header Component -->
+
     <AppHeader :scrolled="isScrolled" @toggle-mobile="toggleMobileMenu" />
 
     <!-- Hero Section -->
@@ -117,11 +117,10 @@ export default {
   name: 'Experts',
 
   setup() {
-    // State
+    
     const isScrolled = ref(false)
     const mobileMenuOpen = ref(false)
 
-    // Data
     const solutions = ref([
       {
         id: 1,
@@ -162,7 +161,7 @@ export default {
       { format: 'Цифровые экраны', coverage: 'Средний', cost: 'Высокая', effectiveness: '7/10' }
     ])
 
-    // Methods
+
     const handleScroll = () => {
       isScrolled.value = window.scrollY > 50
     }
@@ -176,7 +175,7 @@ export default {
       }
     }
 
-    // Smooth scroll for anchor links
+   
     const initSmoothScroll = () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -195,7 +194,7 @@ export default {
       })
     }
 
-    // Lifecycle
+
     onMounted(() => {
       window.addEventListener('scroll', handleScroll)
       initSmoothScroll()

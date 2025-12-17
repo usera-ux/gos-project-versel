@@ -6,16 +6,16 @@
     </div>
 
     <div class="users-table-container">
-      <!-- ПУСТОЙ -->
+ 
       <div v-if="users.length === 0" class="empty-state">
         <p>Нет пользователей</p>
       </div>
       
       <div v-else class="users-content">
-        <!-- ✅ ДЕСКТОП -->
+
         <div class="users-table-wrapper desktop-only">
           <table class="users-table">
-            <!-- твоя таблица без изменений -->
+     
             <thead>
               <tr><th>ID</th><th>Email</th><th>Имя</th><th>Роль</th><th>Дата регистрации</th><th>Действия</th></tr>
             </thead>
@@ -41,7 +41,7 @@
           </table>
         </div>
 
-        <!-- ✅ МОБИЛКА РАССКОММЕНТИРОВАНА! -->
+    
         <div class="users-cards mobile-only">
           <div v-for="user in users" :key="user.id" class="user-card">
             <div class="user-card-header">
@@ -106,7 +106,7 @@ const deleteUser = (id) => {
 const formatDate = (date) => new Date(date).toLocaleDateString('ru-RU')
 </script>
 
-<!-- ✅ ОДИН style блок! -->
+
 <style scoped>
 .users-manager { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .page-header { margin-bottom: 30px; text-align: center; }
@@ -121,7 +121,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('ru-RU')
 .users-table th { background: #f8f9fa; font-weight: 600; color: #333; position: sticky; top: 0; z-index: 10; }
 .user-row:hover { background: #f8f9fa; }
 
-/* ✅ МОБИЛКА ВКЛЮЧЕНА */
+
 .mobile-only { display: none; flex-direction: column; gap: 12px; padding: 20px; height: 100%; }
 .users-cards { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
 .user-card { background: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); padding: 20px; }
@@ -151,7 +151,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('ru-RU')
 
 .empty-state { text-align: center; padding: 80px 20px; color: #666; }
 
-/* ✅ МОБИЛЬНЫЕ МЕДИА */
+
 @media (max-width: 768px) {
   .desktop-only { display: none !important; }
   .mobile-only { display: flex !important; }

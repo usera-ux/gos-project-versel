@@ -1,6 +1,6 @@
 <template>
   <div class="admin-layout" style="margin-top: 70px;">
-    <!-- БОКОВОЕ МЕНЮ -->
+
     <aside class="sidebar">
       <div class="sidebar-header">
         <h2> Админ панель</h2>
@@ -19,7 +19,7 @@
       </nav>
     </aside>
     
-    <!-- КОНТЕНТ -->
+
     <main class="admin-content">
       <div class="admin-main">
         <router-view />
@@ -130,7 +130,7 @@ const userName = computed(() => user.value?.name || 'Гость')
   padding: 30px;
   flex: 1;
 }
-/* Адаптив: планшеты и мобильные */
+
 @media (max-width: 1024px) {
   .admin-layout {
     flex-direction: column;

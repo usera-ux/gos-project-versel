@@ -8,7 +8,7 @@
       </div>
     </section>
 
-    <!-- Contacts Content -->
+
     <section class="contacts-content">
       <div class="contacts-container">
         <div class="contact-info">
@@ -206,7 +206,6 @@ export default {
   padding-top: 90px;
 }
 
-/* Header Spacer */
 .header-spacer {
   height: 90px;
   width: 100%;
@@ -222,7 +221,7 @@ export default {
   }
 }
 
-/* Contacts Hero Section */
+
 .contacts-hero {
   background: var(--gradient);
   color: white;
@@ -250,7 +249,6 @@ export default {
   padding: 0 20px;
 }
 
-/* Contacts Content */
 .contacts-content {
   padding: 80px 0;
 }

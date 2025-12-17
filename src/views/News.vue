@@ -73,7 +73,8 @@
                 </div>
               </div>
               <h3 class="news-title">{{ newsItem.title }}</h3>
-              <p class="news-excerpt">{{ truncateText(newsItem.excerpt || newsItem.content, 150) }}</p>
+              <p class="news-excerpt" v-html="highlight(truncateText(newsItem.excerpt || newsItem.content, 150))"></p>
+
               
               <router-link to="/detailnews" class="news-link">
                 Подробнее →
@@ -106,6 +107,8 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'NewsPage',
   data() {
@@ -122,11 +125,16 @@ export default {
   computed: {
     filteredNews() {
       if (!this.search.trim()) return this.news
-      
-      return this.news.filter(newsItem =>
-        newsItem.title?.toLowerCase().includes(this.search.toLowerCase()) ||
-        (newsItem.excerpt || newsItem.content)?.toLowerCase().includes(this.search.toLowerCase())
-      )
+
+      const searchLower = this.search.toLowerCase()
+      return this.news.filter(newsItem => {
+        const title = newsItem.title?.toLowerCase() || ''
+        const excerpt = (newsItem.excerpt || newsItem.content)?.toLowerCase() || ''
+        const category = newsItem.category?.toLowerCase() || ''
+        return title.includes(searchLower) ||
+               excerpt.includes(searchLower) ||
+               category.includes(searchLower)
+      })
     },
     paginatedFilteredNews() {
       const start = (this.currentPage - 1) * this.itemsPerPage
@@ -138,25 +146,18 @@ export default {
     }
   },
   mounted() {
-    console.log('Загружаем новости с API...')
     this.fetchNews()
   },
   methods: {
     async fetchNews() {
       try {
-        console.log(' Запрос:', this.API_URL)
         this.loading = true
         this.error = null
         
         const response = await fetch(this.API_URL)
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`)
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
         
         const data = await response.json()
-        console.log(' Данные:', data.length)
-      
         if (Array.isArray(data)) {
           this.news = data.map(item => ({
             id: item.id,
@@ -170,9 +171,7 @@ export default {
         } else {
           this.news = this.createFallbackData()
         }
-        
       } catch (error) {
-        console.error(' Ошибка:', error)
         this.error = error.message
         this.news = this.createFallbackData()
       } finally {
@@ -180,28 +179,42 @@ export default {
       }
     },
 
-    handleSearch() {
+    handleSearch: _.debounce(function() {
       this.currentPage = 1
-    },
+    }, 300),
 
     formatDate(dateString) {
-      if (!dateString) return 'Дата не указана'
-      try {
-        const date = new Date(dateString)
-        return date.toLocaleDateString('ru-RU', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric'
-        })
-      } catch {
-        return 'Дата не указана'
-      }
-    },
+  if (!dateString) return 'Дата не указана'
+
+  // Разбиваем строку "15 дек 2025"
+  const months = {
+    'янв': 0, 'фев': 1, 'мар': 2, 'апр': 3, 'май': 4, 'июн': 5,
+    'июл': 6, 'авг': 7, 'сен': 8, 'окт': 9, 'ноя': 10, 'дек': 11
+  }
+
+  const parts = dateString.toLowerCase().split(' ')
+  if (parts.length !== 3) return 'Дата не указана'
+
+  const day = parseInt(parts[0], 10)
+  const month = months[parts[1]]
+  const year = parseInt(parts[2], 10)
+
+  if (isNaN(day) || month === undefined || isNaN(year)) return 'Дата не указана'
+
+  const date = new Date(year, month, day)
+  return date.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' })
+}
+,
 
     truncateText(text, maxLength) {
       if (!text) return ''
-      if (text.length <= maxLength) return text
-      return text.substring(0, maxLength) + '...'
+      return text.length <= maxLength ? text : text.substring(0, maxLength) + '...'
+    },
+
+    highlight(text) {
+      if (!this.search) return text
+      const regex = new RegExp(`(${this.search})`, 'gi')
+      return text.replace(regex, '<mark>$1</mark>')
     },
 
     handleImageError(event) {
@@ -232,6 +245,7 @@ export default {
   }
 }
 </script>
+
 
 <style>
 :root {

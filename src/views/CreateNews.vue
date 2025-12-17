@@ -118,7 +118,7 @@ const submitForm = async () => {
     
     success.value = 'Новость успешно добавлена!'
     
-    // Через 2 секунды переходим к списку новостей
+
     setTimeout(() => {
       router.push('/admin/news')
     }, 2000)
