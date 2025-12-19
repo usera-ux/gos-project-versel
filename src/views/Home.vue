@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <!-- Animated Background -->
+   
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>

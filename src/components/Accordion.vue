@@ -146,7 +146,7 @@ export default {
   }
 }
 
-/* Добавляем ваши переменные */
+
 :root {
   --primary: #2c5aa0;
   --primary-light: #3a6bc8;

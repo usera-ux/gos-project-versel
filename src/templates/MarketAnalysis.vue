@@ -1,6 +1,6 @@
 <template>
   <div class="templates-page">
-    <!-- Animated Background -->
+
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>
@@ -16,7 +16,6 @@
         Шаблон маркетинговых анализов
       </h1>
 
-      <!-- Loading Indicator -->
       <div 
         v-if="loading" 
         class="loading"
@@ -25,7 +24,7 @@
         <p>Загрузка шаблонов...</p>
       </div>
 
-      <!-- Error Message -->
+
       <div 
         v-else-if="error" 
         class="loading"
@@ -34,7 +33,7 @@
         <p>Ошибка загрузки шаблонов. Пожалуйста, попробуйте позже.</p>
       </div>
 
-      <!-- Templates Grid -->
+     
       <div 
         v-else 
         class="template-grid"
@@ -188,9 +187,9 @@ export default {
       }
     }
 
-    // Инициализация Intersection Observer
+  
     const initObservers = () => {
-      // Observer для заголовка
+      
       const titleObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
@@ -207,7 +206,7 @@ export default {
         titleObserver.observe(titleElement)
       }
 
-      // Observer для карточек
+   
       observer = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
@@ -223,7 +222,7 @@ export default {
         { threshold: 0.15 }
       )
 
-      // Начать наблюдение за карточками после рендера
+     
       setTimeout(() => {
         document.querySelectorAll('.card').forEach(card => {
           observer.observe(card)
@@ -231,10 +230,10 @@ export default {
       }, 100)
     }
 
-    // Загрузка и отображение шаблонов
+  
     const displayTemplates = () => {
       try {
-        // Используем локальные данные
+ 
         if (templatesData.templates && templatesData.templates.length > 0) {
           templates.value = templatesData.templates.map(t => ({
             ...t,
@@ -243,7 +242,7 @@ export default {
           }))
           loading.value = false
           
-          // Инициализировать observers после рендера
+         
           setTimeout(() => {
             initObservers()
           }, 50)
@@ -257,7 +256,7 @@ export default {
       }
     }
 
-    // Mobile menu handler
+  
     const setupMobileMenu = () => {
       const mobileMenuBtn = document.querySelector('.mobile-menu-btn')
       if (mobileMenuBtn) {
@@ -269,7 +268,7 @@ export default {
     }
 
     onMounted(() => {
-      // Имитация загрузки
+      
       setTimeout(() => {
         displayTemplates()
         setupMobileMenu()
@@ -293,7 +292,7 @@ export default {
 </script>
 
 <style scoped>
-/* ТОЧНЫЕ СТИЛИ ИЗ ВАШЕГО ОРИГИНАЛЬНОГО HTML */
+
 
 * {
   margin: 0;
@@ -310,7 +309,7 @@ export default {
   flex-direction: column;
 }
 
-/* Animated Background */
+
 .animated-bg {
   position: fixed;
   top: 0;
@@ -358,7 +357,7 @@ export default {
   66% { transform: translate(-20px, 20px) rotate(240deg); }
 }
 
-/* Основной контент */
+
 .main-content {
   flex: 1;
   padding: 120px 20px 80px;
@@ -382,7 +381,7 @@ export default {
   transform: translateY(0) !important;
 }
 
-/* Индикатор загрузки */
+
 .loading {
   text-align: center;
   font-size: 18px;
@@ -405,7 +404,7 @@ export default {
   100% { transform: rotate(360deg); }
 }
 
-/* Сетка карточек */
+
 .template-grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -415,7 +414,6 @@ export default {
   padding: 20px;
 }
 
-/* Карточки */
 .card {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(16px);
@@ -524,7 +522,7 @@ export default {
   color: #3d8bfd;
 }
 
-/* Кнопки */
+
 .buttons {
   display: flex;
   gap: 12px;
@@ -562,7 +560,7 @@ export default {
   box-shadow: 0 6px 20px rgba(39,174,96,.5);
 }
 
-/* Футер */
+
 footer {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(16px);
@@ -584,7 +582,7 @@ footer p {
   margin: 0;
 }
 
-/* Адаптивность */
+
 @media (max-width: 768px) {
   .nav-main {
     display: none;

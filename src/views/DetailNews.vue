@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <!-- Animated Background -->
+
     <div class="floating-shape" :style="shapeStyle(1)"></div>
     <div class="floating-shape" :style="shapeStyle(2)"></div>
     <div class="floating-shape" :style="shapeStyle(3)"></div>
@@ -8,7 +8,7 @@
 
     <AppHeader :scrolled="isScrolled" @toggle-mobile="toggleMobileMenu" />
 
-    <!-- News Detail -->
+
     <section class="news-detail-hero">
       <div class="container">
         <div class="row">
@@ -37,7 +37,6 @@
       </div>
     </section>
 
-    <!-- News Content -->
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-10 col-xl-8">
@@ -46,13 +45,13 @@
             <div class="p-4 p-md-5">
               <div class="news-detail-text" v-html="currentNews.content"></div>
 
-              <!-- Source Block -->
+ 
               <div class="news-source">
                 <div class="source-title">Источник:</div>
                 <a :href="currentNews.source" target="_blank" class="source-link">{{ currentNews.source }}</a>
               </div>
               
-              <!-- Navigation -->
+
               <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
                 <a v-if="hasPrev" :href="'?id=' + prevNewsId" class="nav-btn">
                   <i class="bi bi-arrow-left"></i> Предыдущая
@@ -73,7 +72,7 @@
       </div>
     </div>
 
-    <!-- Footer -->
+  
     <footer class="py-4 mt-5">
       <div class="container text-center">
         <p class="mb-2">Казахстанская ассоциация профессиональных маркетологов</p>
@@ -90,7 +89,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 export default {
   name: 'DetailNews',
   setup() {
-    // News Data
+
     const newsData = {
       'news1': {
         id: 'news1',

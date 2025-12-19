@@ -41,7 +41,7 @@ export default {
     let interval
     
     const startProgress = () => {
-      const totalSteps = props.duration / 50 // обновляем каждые 50мс
+      const totalSteps = props.duration / 50 
       const increment = 100 / totalSteps
       
       interval = setInterval(() => {

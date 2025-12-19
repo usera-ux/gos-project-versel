@@ -1,6 +1,6 @@
 <template>
   <div class="books-page">
-    <!-- Animated Background -->
+
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>
@@ -8,7 +8,7 @@
       <div class="floating-shape shape-4"></div>
     </div>
     
-    <!-- Books Hero -->
+
     <section class="books-hero">
       <div class="container">
         <h1>Коллекция книг по продажам</h1>
@@ -16,10 +16,10 @@
       </div>
     </section>
 
-    <!-- Books Content -->
+
     <section class="books-content">
       <div class="books-container">
-        <!-- Loading State -->
+
         <div v-if="loading" class="loading-state">
           <div class="spinner"></div>
           <p>Загрузка книг...</p>

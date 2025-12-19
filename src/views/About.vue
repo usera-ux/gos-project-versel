@@ -2,14 +2,14 @@
   <div class="president-page">
  
     
-    <!-- Hero Section -->
+
     <section class="president-hero">
       <div class="container">
         <h1>Президент Ассоциации</h1>
       </div>
     </section>
 
-    <!-- President Content -->
+
     <section class="president-content">
       <div class="president-container">
         <div class="president-profile">

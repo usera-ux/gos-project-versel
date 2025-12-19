@@ -108,7 +108,7 @@
       </div>
     </section>
 
-    <!-- Map Section -->
+
     <section class="map-section">
       <div class="map-container">
         <div class="city-map-layout">

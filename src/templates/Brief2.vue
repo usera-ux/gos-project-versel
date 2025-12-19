@@ -1,13 +1,13 @@
 <template>
   <div class="templates-page">
-    <!-- Animated Background -->
+  
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>
       <div class="floating-shape shape-3"></div>
     </div>
 
-    <!-- Main Content -->
+
     <main class="main-content">
       <div class="container">
         <h1 
@@ -17,7 +17,7 @@
           Шаблоны брифов
         </h1>
 
-        <!-- Loading Indicator -->
+      
         <div 
           v-if="loading" 
           class="loading text-center py-5"
@@ -26,7 +26,6 @@
           <p class="text-muted">Загрузка шаблонов...</p>
         </div>
 
-        <!-- Error Message -->
         <div 
           v-else-if="error" 
           class="error-message text-center py-5"
@@ -34,7 +33,7 @@
           <p class="text-danger">Ошибка загрузки шаблонов. Пожалуйста, попробуйте позже.</p>
         </div>
 
-        <!-- Templates Grid -->
+ 
         <div 
           v-else 
           class="template-grid"
@@ -54,7 +53,7 @@
                 :data-id="template.id"
               >
                 <div class="card-body d-flex flex-column h-100 p-4">
-                  <!-- Header with Image -->
+               
                   <div class="card-header d-flex align-items-start gap-3 mb-3 border-0 bg-transparent p-0">
                     <div class="template-image rounded-3 overflow-hidden flex-shrink-0">
                       <img 
@@ -65,12 +64,12 @@
                       />
                     </div>
                     
-                    <!-- Text Content -->
+               
                     <div class="text-content flex-grow-1">
                       <h5 class="template-title fw-bold mb-2">{{ template.title }}</h5>
                       <p class="template-meta text-muted small mb-2">{{ template.description }}</p>
                       
-                      <!-- Features -->
+                     
                       <div class="template-features d-flex flex-wrap gap-2">
                         <span class="feature-tag badge bg-primary bg-opacity-10 text-primary">
                           {{ template.slides }} слайдов
@@ -79,7 +78,7 @@
                     </div>
                   </div>
 
-                  <!-- Buttons -->
+              
                   <div class="buttons mt-auto pt-3">
                     <div class="row g-2">
                       <div class="col">
@@ -374,7 +373,7 @@ export default {
         transform: translateY(0) !important;
     }
 
-    /* Индикатор загрузки */
+
     .loading {
         text-align: center;
         font-size: 18px;
@@ -397,7 +396,7 @@ export default {
         100% { transform: rotate(360deg); }
     }
 
-    /* Сетка карточек */
+ 
     .template-grid {
         max-width: 1200px;
         margin: 0 auto;
@@ -407,7 +406,7 @@ export default {
         padding: 20px;
     }
 
-    /* Карточки */
+    
     .card {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(16px);
@@ -516,7 +515,7 @@ export default {
         color: #3d8bfd;
     }
 
-    /* Кнопки */
+   
     .buttons {
         display: flex;
         gap: 12px;
@@ -568,7 +567,6 @@ export default {
     .download:hover {
         box-shadow: 0 6px 20px rgba(39,174,96,.5);
     }
-    /* Адаптивность */
     @media (max-width: 768px) {
         .nav-main {
             display: none;

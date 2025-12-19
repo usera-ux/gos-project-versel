@@ -1,9 +1,9 @@
 <template>
   <div class="exhibitions-page">
-    <!-- Header Component -->
+  
     <AppHeader :scrolled="isScrolled" @toggle-mobile="toggleMobileMenu" />
 
-    <!-- Exhibitions Hero Section -->
+ 
     <section class="exhibitions-hero">
       <div class="container">
         <h1>Выставки</h1>
@@ -11,7 +11,6 @@
       </div>
     </section>
 
-    <!-- Exhibitions Content -->
     <section class="exhibitions-content">
       <div class="exhibitions-container">
  
@@ -41,7 +40,7 @@
           </div>
         </div>
 
-        <!-- Пагинация -->
+        
         <div class="exhibitions-pagination" v-if="totalPages > 1">
           <button 
             v-for="page in totalPages" 

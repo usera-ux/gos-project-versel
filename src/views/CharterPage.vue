@@ -1,6 +1,6 @@
 <template>
   <div class="charter-page">
-    <!-- Animated Background -->
+
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>
@@ -8,7 +8,7 @@
       <div class="floating-shape shape-4"></div>
     </div>
 
-    <!-- Hero Section -->
+
     <section class="charter-hero">
       <div class="container">
         <h1 class="display-4 fw-bold mb-4">Устав Ассоциации</h1>
@@ -16,10 +16,10 @@
       </div>
     </section>
 
-    <!-- Main Content -->
+
     <section class="charter-content py-5">
       <div class="container">
-        <!-- Charter Card -->
+
         <div class="charter-card card border-0 shadow-lg mb-5 animate-on-scroll" ref="charterCard">
           <div class="card-header py-4 text-white" :style="gradientStyle">
             <h2 class="h2 fw-bold text-center mb-3">УСТАВ<br>АССОЦИАЦИИ ПРОФЕССИОНАЛЬНЫХ МАРКЕТОЛОГОВ</h2>

@@ -46,7 +46,7 @@ const loading = ref(false)
 const error = ref('')
 
 const login = () => {
-  console.log('🔥 LOGIN:', email.value, password.value)
+  console.log(' LOGIN:', email.value, password.value)
   
   if (!email.value || !password.value) {
     error.value = 'Заполните все поля!'
@@ -58,7 +58,7 @@ const login = () => {
   
   try {
     const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]')
-    console.log('📋 Все пользователи:', allUsers)
+    console.log(' Все пользователи:', allUsers)
     
     const storedUser = allUsers.find(u => 
       u.email === email.value && 

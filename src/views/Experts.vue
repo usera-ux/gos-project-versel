@@ -1,6 +1,6 @@
 <template>
   <div class="outdoor-advertising-page">
-    <!-- Animated Background -->
+
     <div class="animated-bg">
       <div class="floating-shape shape-1"></div>
       <div class="floating-shape shape-2"></div>
@@ -9,7 +9,6 @@
 
     <AppHeader :scrolled="isScrolled" @toggle-mobile="toggleMobileMenu" />
 
-    <!-- Hero Section -->
     <section class="hero-section">
       <div class="container">
         <div class="hero-content">
@@ -20,7 +19,7 @@
       </div>
     </section>
 
-    <!-- Problem Section -->
+    
     <section class="problem-section">
       <div class="container">
         <div class="section-title">
@@ -42,7 +41,7 @@
       </div>
     </section>
 
-    <!-- Solutions Section -->
+
     <section class="solutions-section" id="solutions">
       <div class="container">
         <div class="section-title">
@@ -51,7 +50,7 @@
         </div>
         
         <div class="solutions-grid">
-          <!-- Solution Cards -->
+
           <div class="solution-card" v-for="solution in solutions" :key="solution.id">
             <div class="solution-image">
               <img :src="solution.image" :alt="solution.title">
@@ -71,7 +70,7 @@
       </div>
     </section>
 
-    <!-- Comparison Section -->
+
     <section class="comparison-section">
       <div class="container">
         <div class="section-title">
@@ -94,7 +93,6 @@
       </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta-section">
       <div class="container">
         <h2>Готовы найти оптимальное решение для вашего бизнеса?</h2>

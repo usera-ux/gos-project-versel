@@ -10,7 +10,7 @@
           <router-link to="/" class="nav-link" @click="closeMobileMenu">Главная</router-link>
 
 
-          <!-- О Нас -->
+
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('about', $event)">О Нас</a>
             <div class="dropdown-menu">
@@ -22,7 +22,7 @@
           
           <router-link to="/news" class="nav-link" @click="closeMobileMenu">Новости</router-link>
           
-          <!-- Обучение -->
+   
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('training', $event)">Обучение</a>
             <div class="dropdown-menu">
@@ -35,7 +35,7 @@
             </div>
           </div>
           
-          <!-- Проекты -->
+
           <div class="dropdown">
             <a href="#" class="nav-link" @click.prevent="toggleDropdown('projects', $event)">Проекты</a>
             <div class="dropdown-menu">
@@ -50,7 +50,7 @@
         </nav>
 
 
-        <!-- Auth -->
+  
         <div class="auth-section">
           <div v-if="!user.name" class="auth-buttons">
             <router-link to="/login" class="btn btn-secondary">Вход</router-link>
