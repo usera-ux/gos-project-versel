@@ -70,6 +70,7 @@
                     class="hidden-input" 
                     accept="image/*"
                     @change="onAvatarChange"
+                  
                   />
                 </label>
                 <button 
@@ -406,7 +407,9 @@ const saveProfile = () => {
   localStorage.setItem('user', JSON.stringify(user.value))
   window.dispatchEvent(new CustomEvent('user-updated'))
   alert('✅ Профиль сохранён')
+   window.location.reload()
 }
+
 
 const changePassword = () => {
   if (passwordForm.value.newPass !== passwordForm.value.confirm) {
@@ -518,11 +521,6 @@ const logout = () => {
 </script>
 
 <style scoped>
-/* ========================================
-   ✅ ПОЛНЫЕ СТИЛИ - ВСЕ В ОДНОМ МЕСТЕ
-   ======================================== */
-
-/* ОСНОВНОЙ ЛЭЙАУТ */
 .profile-layout {
   display: flex;
   min-height: 100vh;
